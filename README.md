@@ -16,7 +16,9 @@ Postavené vo firemných farbách derat.sk: zelená `#406618`, červená `#c63a2
   5. Rozsah zamorenia (mierne / stredné / silné)
   6. Doplnky (opakovaný zásah, protokol, monitoring, expres, hniezda)
   7. Zhrnutie + orientačná cena + dopytový formulár
-- 🖼️ **Vizuál ku každej voľbe** – SVG ilustrácie škodcov a priestorov (scéna sa mení podľa výberu).
+- 📷 **Reálne fotky služieb** z derat.sk (myš, šváby, roztoče) v náhľade s jemným zoomom (Ken Burns); pri burine a stromoch ostré SVG ilustrácie.
+- ✨ **Animácie** – pulzujúca bublina, „typing" indikátor chatbota, plynulé prechody krokov, count-up ceny, hover efekty. Rešpektuje `prefers-reduced-motion`.
+- 📝 **Vysvetlenia služieb presne podľa derat.sk** – pri každej službe info box (potkany/myši/hraboše, postrek/zadymovanie/plynovanie, polymérová dezinfekcia…) a postup zásahu.
 - 📩 **Odoslanie dopytu** funguje hneď cez predvyplnený e-mail; voliteľne aj na vlastný backend.
 - 📱 Plne responzívne (na mobile fullscreen).
 
@@ -42,7 +44,8 @@ const COMPANY={
   orientačné sumy v eurách bez DPH (`base` = výjazd, `rate` = €/m² resp. €/strom,
   `mult` = násobiteľ). Minimálny výjazd je v premennej `MIN`.
 - **Texty chatbota** sa upravujú vo funkcii `reply()`.
-- **Skutočné fotky** namiesto SVG: ilustrácie sú v objekte `SVG` a vykresľujú sa
-  vo funkcii `sceneSvg()` – stačí nahradiť `<svg>` za `<img src="...">`.
+- **Fotky** sa nastavujú v objekte `PHOTO` (URL na obrázok pre danú službu). Burina
+  a stromy používajú SVG z objektu `SVG`. Náhľad vykresľuje funkcia `previewHtml()`.
+- **Vysvetlenia** sú v poli `info` každej služby + premenná `PROCESS` (postup zásahu).
 
 > Ceny v kalkulačke sú **orientačné**; konečná suma sa potvrdzuje po obhliadke.
