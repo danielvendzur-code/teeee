@@ -31,6 +31,8 @@ img{max-width:100%}
 .guide .lead{font-size:18px;line-height:1.6;color:#4a5340;margin:0 auto 24px;text-align:center;max-width:560px}
 .guide .lead b{color:var(--g-dk)}
 .guide-steps{display:flex;flex-direction:column;gap:13px;margin:0 0 22px}
+.gh2{font-size:19px;font-weight:900;color:var(--g-dk);margin:24px 0 14px;text-align:center}
+.gico{flex:0 0 auto;width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--g-100);font-size:18px;display:flex;align-items:center;justify-content:center}
 .gstep{display:flex;gap:15px;align-items:center;background:var(--g-50);border:1px solid var(--g-100);border-radius:15px;padding:15px 17px;font-size:16.5px;line-height:1.5;color:var(--ink)}
 .gstep b{color:var(--g-dk)}
 .gnum{flex:0 0 auto;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#5a8a24,#2e4a11);color:#fff;font:900 18px var(--font);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(46,74,17,.28)}
@@ -110,7 +112,7 @@ img{max-width:100%}
 .dr-cta:hover .ar,.dr-cta:active .ar{transform:translateX(4px);color:var(--red)}
 
 /* správy */
-.dr-msgs{flex:1;overflow:auto;padding:14px 13px 0;display:flex;flex-direction:column;gap:9px;background:linear-gradient(180deg,#fff,#f5f8f0)}
+.dr-msgs{flex:1;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:14px 13px 0;display:flex;flex-direction:column;gap:9px;background:linear-gradient(180deg,#fff,#f5f8f0)}
 .dr-row{display:flex;gap:8px;align-items:flex-end;animation:drIn .3s ease}
 .dr-row.me{justify-content:flex-end}
 .dr-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#6fa530,#2e4a11);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
@@ -181,7 +183,7 @@ img{max-width:100%}
 .dr-prog-fill{height:100%;background:linear-gradient(90deg,#406618,#5a8a24,#a6f06f);transition:width .4s cubic-bezier(.2,.8,.2,1)}
 .dr-prog-n{font:900 11px var(--font);color:var(--g);white-space:nowrap}
 
-.dr-body{flex:1;overflow:auto;padding:0 13px 8px}
+.dr-body{flex:1;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:0 13px 8px}
 
 /* hero foto – čistá, ľahký overlay len dole pod popisom */
 .dr-hero{position:relative;border-radius:var(--r);overflow:hidden;background:#dfe7d4;aspect-ratio:16/9;margin-bottom:13px;border:1px solid var(--line)}
@@ -216,13 +218,13 @@ img{max-width:100%}
 .dr-rowcard-pr{text-align:right;font:900 13px var(--font);color:var(--g);white-space:nowrap}
 .dr-rowcard-pr small{display:block;font:600 9px var(--font);color:var(--muted);letter-spacing:.3px}
 .dr-rowcard.sel:after{content:"✓";position:absolute;left:8px;top:8px;width:21px;height:21px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;font:900 12px var(--font);animation:drPop .3s ease;box-shadow:0 2px 6px rgba(0,0,0,.35)}
-.dr-pcard{position:relative;border:1.8px solid var(--line);background:#fff;border-radius:15px;overflow:hidden;cursor:pointer;text-align:left;transition:.16s;animation:drStep .35s ease both}
+.dr-pcard{position:relative;border:1.8px solid var(--line);background:#fff;border-radius:15px;overflow:hidden;cursor:pointer;text-align:left;transition:.16s;animation:drStep .35s ease both;display:flex;flex-direction:column;height:122px}
 .dr-pcard:hover{border-color:var(--g-lt);transform:translateY(-2px);box-shadow:0 10px 20px rgba(46,74,17,.12)}
 .dr-pcard.sel{border-color:var(--g);box-shadow:0 0 0 3px rgba(64,102,24,.16)}
-.dr-pcard-img{height:80px;background-size:cover;background-position:center;background-color:#dfe7d4}
-.dr-pcard-svg{height:80px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#eef3e6,#dde7d0)}
+.dr-pcard-img{height:78px;flex:0 0 78px;background-size:cover;background-position:center;background-color:#dfe7d4}
+.dr-pcard-svg{height:78px;flex:0 0 78px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#eef3e6,#dde7d0)}
 .dr-pcard-svg svg{width:42px;height:42px}
-.dr-pcard-bd{padding:9px 10px}
+.dr-pcard-bd{flex:1;padding:8px 10px;display:flex;flex-direction:column;justify-content:center}
 .dr-pcard-bd b{font-size:12.5px;font-weight:800;color:var(--ink);display:block;line-height:1.15}
 .dr-pcard-bd span{font-size:10px;font-weight:500;color:var(--muted);line-height:1.25;display:block;margin-top:2px}
 .dr-pcard-bd .pr{font-size:10.5px;font-weight:900;color:var(--g);margin-top:5px;display:block}
@@ -331,29 +333,37 @@ img{max-width:100%}
 </head>
 <body>
 
-<!-- Sprievodca pre majiteľa stránky (na ostrej stránke môžete blok .demo odstrániť) -->
+<!-- Sprievodca (na ostrej stránke môžete blok .demo odstrániť) -->
 <div class="demo">
   <div class="guide">
-    <h1>Takto by mohol vyzerať váš asistent a kalkulačka</h1>
-    <p class="lead">Pán majiteľ, toto je <b>ukážka</b> — náhľad, ako by na vašej stránke mohol fungovať pomocník s cenovou kalkulačkou. Pokojne si všetko vyskúšajte a poklikajte, <b>nič nepokazíte</b>.</p>
+    <h1>Asistent a cenová kalkulačka pre vašu stránku</h1>
+    <p class="lead">Toto je <b>ukážka</b>, ako by to fungovalo u vás. Pokojne si všetko vyskúšajte a poklikajte — <b>nič nepokazíte</b>.</p>
 
     <div class="guide-steps">
       <div class="gstep"><span class="gnum">1</span><div>Vpravo dole je <b>zelené tlačidlo s myšou</b>. Kliknite naň — otvorí sa pomocník.</div></div>
-      <div class="gstep"><span class="gnum">2</span><div>V pomocníkovi stlačte tlačidlo <b>„Cenová kalkulačka"</b>.</div></div>
-      <div class="gstep"><span class="gnum">3</span><div>Potom už len <b>klikáte odpovede</b> — aká služba, aký škodca, aký priestor a aká plocha. Takto to prejde aj váš zákazník, nemusí nič písať.</div></div>
-      <div class="gstep"><span class="gnum">4</span><div>Na konci sa zobrazí <b>orientačná cena</b> a zákazník vám môže rovno nechať telefón.</div></div>
+      <div class="gstep"><span class="gnum">2</span><div>Stlačte tlačidlo <b>„Cenová kalkulačka"</b>.</div></div>
+      <div class="gstep"><span class="gnum">3</span><div>Ďalej už len <b>klikáte odpovede</b> — služba, škodca, priestor a plocha. Presne takto to prejde aj váš zákazník, nemusí nič písať.</div></div>
+      <div class="gstep"><span class="gnum">4</span><div>Zobrazí sa <b>orientačná cena</b> a zákazník vám rovno nechá svoje údaje.</div></div>
+    </div>
+
+    <h2 class="gh2">Ako vám to pomôže</h2>
+    <div class="guide-steps">
+      <div class="gstep"><span class="gico">🕐</span><div>Pracuje za vás <b>nonstop — 24 hodín denne, 7 dní v týždni</b>. Aj v noci, cez víkend a počas sviatkov.</div></div>
+      <div class="gstep"><span class="gico">⚡</span><div>Zákazník dostane <b>odpoveď alebo cenu do jednej minúty</b> — nemusí čakať, kým zdvihnete telefón.</div></div>
+      <div class="gstep"><span class="gico">🔧</span><div>Funguje, <b>aj keď ste na montáži</b> a nemáte čas dvíhať. Stránka medzitým získava zákazníkov za vás.</div></div>
+      <div class="gstep"><span class="gico">📩</span><div>Hotové dopyty vám prídu <b>rovno na e-mail so všetkými údajmi zákazníka</b> (meno, telefón, čo potrebuje a kde) — vy si len vyberiete a idete vykonať zákazku.</div></div>
     </div>
 
     <div class="gnote">
-      <p><b>Dôležité, aby ste sa nepomýlili:</b></p>
+      <p><b>Aby ste sa nepomýlili:</b></p>
       <ul>
-        <li><b>Automatický AI asistent</b> (ten, čo sám odpovedá na napísané otázky) <b>zatiaľ nie je hotový</b> — pripravená je zatiaľ kalkulačka a vzhľad. Tú inteligentnú časť doplníme, keď poviete.</li>
-        <li><b>Ceny, ktoré tam vidíte, sú len vymyslené.</b> Sú tam nahodené ako príklad — nastavíme ich presne podľa vás.</li>
+        <li><b>Automatický AI asistent</b> (ten, čo sám odpovedá na napísané otázky) <b>zatiaľ nie je hotový</b> — pripravená je zatiaľ cenová kalkulačka a vzhľad. Inteligentnú časť doplníme, keď poviete.</li>
+        <li><b>Ceny, ktoré tam vidíte, sú len vymyslené</b> — sú nahodené ako príklad. Nastavíme ich presne podľa vás.</li>
         <li><b>Všetko, čo tu vidíte, sa dá zmeniť podľa vašej vôle</b> — farby, texty, kroky, ceny, fotky aj postup. Stačí povedať, ako to chcete.</li>
       </ul>
     </div>
 
-    <p class="note">Prejdite si to v pokoji a všetko si vyskúšajte. Keď budete vedieť, čo by ste chceli inak, dáme to dokopy presne podľa vás.</p>
+    <p class="note">Prejdite si to v pokoji a všetko vyskúšajte. Keď budete vedieť, čo by ste chceli inak, doladíme to presne podľa vás.</p>
   </div>
 </div>
 
