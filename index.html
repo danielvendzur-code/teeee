@@ -31,7 +31,13 @@ img{max-width:100%}
 .guide .lead{font-size:18px;line-height:1.6;color:#4a5340;margin:0 auto 24px;text-align:center;max-width:560px}
 .guide .lead b{color:var(--g-dk)}
 .guide-steps{display:flex;flex-direction:column;gap:13px;margin:0 0 22px}
-.gh2{font-size:19px;font-weight:900;color:var(--g-dk);margin:24px 0 14px;text-align:center}
+.gh2{display:flex;align-items:center;justify-content:center;gap:10px;font-size:19px;font-weight:900;color:var(--g-dk);margin:24px 0 14px;text-align:center}
+.gicon{flex:0 0 auto;width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#5a8a24,#2e4a11);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(46,74,17,.25)}
+.gicon svg{width:17px;height:17px}
+.gico-c{flex:0 0 auto;width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#5a8a24,#2e4a11);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(46,74,17,.22)}
+.gico-c svg{width:19px;height:19px}
+.gicon svg path,.gico-c svg path{fill:#fff}
+.gicon svg circle,.gico-c svg circle{fill:#2f5512}
 .gico{flex:0 0 auto;width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--g-100);font-size:18px;display:flex;align-items:center;justify-content:center}
 .gstep{display:flex;gap:15px;align-items:center;background:var(--g-50);border:1px solid var(--g-100);border-radius:15px;padding:15px 17px;font-size:16.5px;line-height:1.5;color:var(--ink)}
 .gstep b{color:var(--g-dk)}
@@ -337,19 +343,20 @@ img{max-width:100%}
 <div class="demo">
   <div class="guide">
     <h1>Asistent a cenová kalkulačka pre vašu stránku</h1>
-    <p class="lead">Toto je <b>ukážka</b>, ako by to fungovalo u vás. Radšej si to vyskúšajte ako čítajte — <b>nič nepokazíte</b>.</p>
+    <p class="lead">Toto je <b>ukážka</b>, ako by to fungovalo u vás. Pokojne si všetko vyskúšajte — <b>nič nepokazíte</b>.</p>
 
-    <h2 class="gh2">1. Cenová kalkulačka</h2>
+    <h2 class="gh2"><span class="gicon"><svg viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm0 4v3h10V6H7Zm0 5v2h2v-2H7Zm4 0v2h2v-2h-2Zm4 0v2h2v-2h-2Zm-8 4v2h2v-2H7Zm4 0v2h2v-2h-2Zm4 0v2h2v-2h-2Z"/></svg></span>1. Cenová kalkulačka</h2>
     <div class="guide-steps">
       <div class="gstep"><span class="gnum">1</span><div>Vpravo dole kliknite na <b>zelené tlačidlo s myšou</b>.</div></div>
       <div class="gstep"><span class="gnum">2</span><div>Stlačte <b>„Cenová kalkulačka"</b> a <b>klikáte odpovede</b> — služba, škodca, priestor, plocha.</div></div>
       <div class="gstep"><span class="gnum">3</span><div>Zobrazí sa <b>orientačná cena</b> a zákazník vám nechá svoje údaje.</div></div>
     </div>
 
-    <h2 class="gh2">2. Asistent (chat)</h2>
+    <h2 class="gh2"><span class="gicon"><svg viewBox="0 0 24 24" fill-rule="evenodd"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/><circle cx="8" cy="9" r="1.3"/><circle cx="12" cy="9" r="1.3"/><circle cx="16" cy="9" r="1.3"/></svg></span>2. Asistent (chat)</h2>
     <div class="guide-steps">
-      <div class="gstep"><span class="gico">💬</span><div>Zákazník sa môže <b>opýtať bežnou rečou</b> — napríklad „mám myši v dome" — a asistent mu <b>poradí a navedie ho</b> na kalkulačku alebo kontakt.</div></div>
-      <div class="gstep"><span class="gico">🐭</span><div>Funguje to ako <b>krátky rozhovor</b> priamo na stránke — zákazník nemusí nikam volať ani hľadať.</div></div>
+      <div class="gstep"><span class="gico-c"><svg viewBox="0 0 24 24" fill-rule="evenodd"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/><circle cx="8" cy="9" r="1.3"/><circle cx="12" cy="9" r="1.3"/><circle cx="16" cy="9" r="1.3"/></svg></span><div>Odpovedá na <b>časté otázky</b> — koľko to stojí, ako zásah prebieha, či je <b>bezpečný pre deti a zvieratá</b> a ako sa pripraviť.</div></div>
+      <div class="gstep"><span class="gico-c"><svg viewBox="0 0 24 24" fill-rule="evenodd"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/><circle cx="8" cy="9" r="1.3"/><circle cx="12" cy="9" r="1.3"/><circle cx="16" cy="9" r="1.3"/></svg></span><div>Podľa toho, čo zákazník napíše (<b>myši, šváby, ploštice…</b>), mu <b>odporučí správnu službu</b>.</div></div>
+      <div class="gstep"><span class="gico-c"><svg viewBox="0 0 24 24" fill-rule="evenodd"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/><circle cx="8" cy="9" r="1.3"/><circle cx="12" cy="9" r="1.3"/><circle cx="16" cy="9" r="1.3"/></svg></span><div><b>Navedie ho</b> na cenovú kalkulačku alebo na priamy kontakt — telefón, e-mail či WhatsApp.</div></div>
     </div>
 
     <h2 class="gh2">Ako vám to pomôže</h2>
