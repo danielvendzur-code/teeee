@@ -47,15 +47,15 @@ img{max-width:100%}
 #derat-bubble:hover{transform:translateY(-2px) scale(1.06);animation-play-state:paused}
 #derat-bubble.open{opacity:0;pointer-events:none;transform:scale(.85)}
 #derat-bubble .dr-mouse{width:46px}
-.dr-dot{position:absolute;right:5px;top:5px;width:15px;height:15px;border-radius:50%;background:var(--am);border:3px solid #fff}
+.dr-dot{position:absolute;right:5px;top:5px;width:15px;height:15px;border-radius:50%;background:var(--red);border:3px solid #fff}
 
 /* ===== Okno ===== */
 #derat-chat{position:fixed;right:20px;bottom:96px;z-index:99999;width:382px;height:min(84vh,672px);max-height:672px;border-radius:24px;background:#fff;border:1px solid var(--line);box-shadow:var(--sh);display:flex;flex-direction:column;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(20px) scale(.96);transform-origin:bottom right;transition:.3s cubic-bezier(.2,.8,.2,1)}
 #derat-chat.show{opacity:1;pointer-events:auto;transform:none}
 
 /* hlavička – zarovnaná */
-.dr-head{padding:13px 14px;background:linear-gradient(135deg,#2e4a11,#406618 58%,#5a8a24);color:#fff;display:flex;align-items:center;gap:11px;border-bottom:3px solid var(--am)}
-.dr-head-logo{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#6fa530,#2e4a11);display:flex;align-items:center;justify-content:center;flex:0 0 auto;box-shadow:0 5px 14px rgba(0,0,0,.22),inset 0 0 0 2px rgba(255,255,255,.25),0 0 0 2px var(--am)}
+.dr-head{padding:13px 14px;background:linear-gradient(135deg,#2e4a11,#406618 58%,#5a8a24);color:#fff;display:flex;align-items:center;gap:11px}
+.dr-head-logo{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#6fa530,#2e4a11);display:flex;align-items:center;justify-content:center;flex:0 0 auto;box-shadow:0 5px 14px rgba(0,0,0,.22),inset 0 0 0 2px rgba(255,255,255,.25)}
 .dr-head-logo .dr-mouse{width:32px}
 .dr-head-t{min-width:0;flex:1;display:flex;flex-direction:column;justify-content:center;gap:3px}
 .dr-head-t b{font-size:15px;font-weight:800;line-height:1.1}
@@ -64,8 +64,8 @@ img{max-width:100%}
 .dr-head-act{display:flex;gap:7px}
 .dr-hbtn{width:36px;height:36px;border:0;background:rgba(255,255,255,.92);color:var(--g-dk);border-radius:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
 .dr-hbtn:hover{background:#fff}
-.dr-hbtn.ghost{background:rgba(255,255,255,.16);color:#fff}
-.dr-hbtn.ghost:hover{background:rgba(255,255,255,.28)}
+.dr-hbtn.ghost{background:var(--am);color:#fff}
+.dr-hbtn.ghost:hover{background:var(--am-dk)}
 .dr-hbtn svg{width:19px;height:19px;fill:currentColor}
 
 /* CTA */
@@ -99,7 +99,9 @@ img{max-width:100%}
 
 .dr-chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 13px 10px;background:#f5f8f0}
 .dr-chip{border:1px solid rgba(64,102,24,.24);background:#fff;border-radius:999px;color:var(--g-dk);padding:8px 12px;font:700 11.5px var(--font);cursor:pointer;transition:.15s,opacity .3s,transform .3s}
-.dr-chip:hover{background:var(--am-50);border-color:var(--am);color:var(--am-dk);transform:translateY(-1px)}
+.dr-chip:hover{background:var(--g-50);transform:translateY(-1px)}
+.dr-chip.am{background:var(--am-50);border-color:var(--am);color:var(--am-dk)}
+.dr-chip.am:hover{background:var(--am-100);border-color:var(--am-dk)}
 /* chipy nabehnú po jednom (po dopísaní úvodu) */
 .dr-chips .dr-chip{opacity:0;transform:translateY(8px);pointer-events:none}
 .dr-chips.reveal .dr-chip{opacity:1;transform:none;pointer-events:auto}
@@ -141,7 +143,7 @@ img{max-width:100%}
 .dr-back{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--g-dk);font-weight:900;cursor:pointer;flex:0 0 auto}
 .dr-back:disabled{opacity:.32}
 .dr-prog-track{flex:1;height:7px;background:#e0e9d3;border-radius:999px;overflow:hidden}
-.dr-prog-fill{height:100%;background:linear-gradient(90deg,#406618,#5a8a24,#e9a23a);transition:width .4s cubic-bezier(.2,.8,.2,1)}
+.dr-prog-fill{height:100%;background:linear-gradient(90deg,#406618,#5a8a24,#a6f06f);transition:width .4s cubic-bezier(.2,.8,.2,1)}
 .dr-prog-n{font:900 11px var(--font);color:var(--g);white-space:nowrap}
 
 .dr-body{flex:1;overflow:auto;padding:0 13px 8px}
@@ -154,7 +156,7 @@ img{max-width:100%}
 .dr-hero-svg svg{width:46%;height:46%}
 .dr-hero-cap{position:absolute;left:12px;right:12px;bottom:11px;display:flex;align-items:center;gap:7px;color:#fff;font:800 12.5px var(--font);text-shadow:0 1px 5px rgba(0,0,0,.5)}
 .dr-hero-cap .d{width:7px;height:7px;border-radius:50%;background:#a6f06f;flex:0 0 auto}
-.dr-hero-cap .bdg{margin-left:auto;background:linear-gradient(135deg,#f3b552,#d6841d);color:#fff;font:800 10px var(--font);padding:4px 9px;border-radius:999px;text-shadow:none;box-shadow:0 2px 6px rgba(200,125,28,.35)}
+.dr-hero-cap .bdg{margin-left:auto;background:rgba(255,255,255,.94);color:var(--g-dk);font:800 10px var(--font);padding:4px 9px;border-radius:999px;text-shadow:none}
 
 .dr-q{font-size:16.5px;font-weight:900;color:var(--g-dk);margin:0 0 3px;letter-spacing:-.2px}
 .dr-q-sub{font-size:11.5px;font-weight:500;color:var(--muted);line-height:1.4;margin-bottom:12px}
@@ -325,7 +327,7 @@ img{max-width:100%}
   <div id="dr-msgs" class="dr-msgs"></div>
 
   <div class="dr-chips">
-    <button class="dr-chip" onclick="DERAT.openCalc()">Spočítať cenu</button>
+    <button class="dr-chip am" onclick="DERAT.openCalc()">Spočítať cenu</button>
     <button class="dr-chip" onclick="DERAT.quick('Mám doma myši alebo potkany.')">Hlodavce</button>
     <button class="dr-chip" onclick="DERAT.quick('Trápia ma šváby a hmyz.')">Hmyz</button>
     <button class="dr-chip" onclick="DERAT.quick('Ako prebieha zásah a je to bezpečné?')">Postup zásahu</button>
