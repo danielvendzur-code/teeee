@@ -303,7 +303,9 @@ img{max-width:100%}
 .dr-lead-h small{font:500 11px var(--font);color:var(--muted);line-height:1.3}
 .dr-lf{display:grid;gap:8px}
 .dr-lf-r{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.dr-lf input,.dr-lf textarea{width:100%;border:1.4px solid var(--line);background:#fbfdf8;border-radius:12px;padding:11px;font:600 12.5px var(--font);color:var(--ink);outline:none;transition:.15s}
+.dr-lf input,.dr-lf textarea,.dr-sel{width:100%;border:1.4px solid var(--line);background:#fbfdf8;border-radius:12px;padding:11px;font:600 12.5px var(--font);color:var(--ink);outline:none;transition:.15s}
+.dr-sel{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236b7363'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;background-size:16px;padding-right:28px;color:var(--ink)}
+.dr-sel:invalid{color:var(--muted)}
 .dr-lf input:focus,.dr-lf textarea:focus{border-color:var(--g-lt);background:#fff}
 .dr-lf textarea{min-height:54px;resize:vertical}
 .dr-cons{display:flex;gap:8px;align-items:flex-start;font:500 10.4px/1.35 var(--font);color:var(--muted)}
@@ -337,7 +339,56 @@ img{max-width:100%}
   .dr-lf-r{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style>
+/* ======================================================
+   VYLEPŠENIA – oživenie vzhľadu, beam okraj, animácie
+   ====================================================== */
+:root{--lime:#a6f06f;--lime-2:#d6ffae}
+
+/* živšia spúšťacia ikona + jemný „twinkle" */
+#derat-bubble{background:radial-gradient(circle at 30% 22%,#86c23f,#4a7c1c 52%,#2c4810);box-shadow:0 14px 32px rgba(46,74,17,.45)}
+#derat-bubble::after{content:"";position:absolute;top:12px;right:14px;width:6px;height:6px;border-radius:50%;background:#eaffcf;box-shadow:0 0 9px 2px rgba(214,255,158,.95);animation:drTwinkle 2.6s ease-in-out infinite;pointer-events:none}
+@keyframes drTwinkle{0%,100%{opacity:.3;transform:scale(.6)}50%{opacity:1;transform:scale(1)}}
+
+/* hlavička – dekoratívne svetlá + hĺbka */
+.dr-head{position:relative;overflow:hidden;background:linear-gradient(120deg,#23400c,#3f6a18 52%,#62a028)}
+.dr-head::before{content:"";position:absolute;right:-34px;top:-46px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(166,240,111,.38),transparent 70%);pointer-events:none}
+.dr-head::after{content:"";position:absolute;left:32%;bottom:-70px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%);pointer-events:none}
+.dr-head-t,.dr-head-logo,.dr-head-act{position:relative;z-index:1}
+.dr-head-logo{box-shadow:0 5px 14px rgba(0,0,0,.25),inset 0 0 0 2px rgba(255,255,255,.3),0 0 0 4px rgba(166,240,111,.18)}
+
+/* správy – jemný farebný nádych miesto plochej zelenej */
+.dr-msgs{background:radial-gradient(circle at 100% 0%,rgba(166,240,111,.12),transparent 40%),radial-gradient(circle at 0% 100%,rgba(64,102,24,.06),transparent 42%),linear-gradient(180deg,#ffffff,#f3f8ea)}
+.dr-b.bot{box-shadow:0 3px 10px rgba(46,74,17,.07)}
+.dr-b.me{box-shadow:0 4px 12px rgba(46,74,17,.22)}
+
+/* ===== Running-light „beam" okraj na hover ===== */
+@property --beamA{syntax:'<angle>';inherits:false;initial-value:0deg}
+.dr-chip,.dr-cta{position:relative}
+.dr-chip::after,.dr-c::after,.dr-cta::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.8px;background:conic-gradient(from var(--beamA),transparent 0 58%,var(--g-lt) 72%,var(--lime-2) 83%,#fff 88%,var(--lime-2) 93%,transparent 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .25s;pointer-events:none;z-index:3}
+.dr-chip:hover::after,.dr-c:hover::after,.dr-cta:hover::after{opacity:1;animation:drBeam 1.15s linear infinite}
+@keyframes drBeam{to{--beamA:360deg}}
+
+/* ===== Krajšia animácia výberu ===== */
+.dr-rowcard.sel,.dr-pcard.sel,.dr-scard.sel,.dr-opt.sel{animation:drSelPop .34s cubic-bezier(.2,1.6,.35,1)}
+@keyframes drSelPop{0%{transform:scale(1)}45%{transform:scale(1.035)}100%{transform:scale(1)}}
+.dr-rowcard.sel,.dr-pcard.sel{box-shadow:0 0 0 3px rgba(64,102,24,.18),0 10px 22px rgba(46,74,17,.16)}
+
+/* ===== Plynulejší prechod krokov ===== */
+@keyframes drStepIn{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:none}}
+@keyframes drQIn{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
+.dr-q,.dr-q-sub{animation:drQIn .42s ease both}
+.dr-q-sub{animation-delay:.04s}
+
+/* ===== Info „i" bublina (vysvetlivky po kliknutí) ===== */
+.dr-ih{position:relative;display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;border:0;background:var(--g);color:#fff;font:900 10px var(--font);cursor:pointer;vertical-align:middle;margin-left:5px;flex:0 0 auto;transition:transform .15s}
+.dr-ih:hover{transform:scale(1.15)}
+.dr-tip{display:none;position:absolute;top:150%;left:50%;transform:translateX(-50%);width:210px;background:#1e231d;color:#fff;font:600 11px/1.5 var(--font);padding:9px 11px;border-radius:11px;box-shadow:0 12px 30px rgba(0,0,0,.3);z-index:30;text-align:left}
+.dr-tip:after{content:"";position:absolute;bottom:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-bottom-color:#1e231d}
+.dr-ih.edge .dr-tip:after{left:auto;right:10px}
+.dr-ih.on .dr-tip{display:block;animation:drPop .2s ease}
+.dr-ih.edge .dr-tip{left:auto;right:-6px;transform:none}
+.dr-ih.edge .dr-tip:after{left:auto;right:10px}
+
 </head>
 <body>
 
@@ -520,13 +571,13 @@ const PLACES={
 };
 /* Rozsah = počet potrebných zásahov → výrazne ovplyvňuje cenu */
 const SEVERITY={
-  mierne:{n:'Mierne',d:'Ojedinelý výskyt, skôr prevencia.',m:.85,v:'1 zásah'},
-  stredne:{n:'Stredné',d:'Pravidelný výskyt na viacerých miestach.',m:1,v:'1–2 zásahy'},
-  silne:{n:'Silné',d:'Rozsiahly výskyt, nutný opakovaný zásah.',m:1.85,v:'2–3 zásahy'}
+  mierne:{n:'Občas / ojedinele',d:'Škodcu vidím len výnimočne, skôr prevencia.',m:.85,v:'1 zásah'},
+  stredne:{n:'Pravidelne',d:'Vidím ho opakovane na viacerých miestach.',m:1,v:'1–2 zásahy'},
+  silne:{n:'Veľa / všade',d:'Premnoženie, škodca je takmer všade.',m:1.85,v:'2–3 zásahy'}
 };
 const ADDONS={
-  protokol:{n:'Písomné potvrdenie o zásahu',d:'Doklad pre úrady a kontroly (napr. v gastre).',p:19},
-  monitoring:{n:'Celoročný dohľad (12 mes.)',d:'Pravidelné kontroly a nástrahy proti návratu škodcov.',p:79},
+  protokol:{n:'Písomné potvrdenie o zásahu',d:'Doklad pre úrady a kontroly (napr. v gastre).',p:19,i:'Tlačený alebo PDF doklad, že zásah prebehol. Vyžaduje ho hygiena a HACCP — najmä v reštauráciách, potravinárstve a firmách.'},
+  monitoring:{n:'Celoročný dohľad (12 mes.)',d:'Pravidelné kontroly a nástrahy proti návratu škodcov.',p:79,i:'Po zásahu necháme na mieste nástrahové staničky a počas roka chodíme na pravidelné kontroly, aby sa škodca nevrátil.'},
   expres:{n:'Expresný zásah',d:'Prídeme do 24 hodín alebo cez víkend.',p:35},
   hniezda:{n:'Odstránenie hniezd',d:'Bezpečná likvidácia hniezd ôs a sršňov.',p:29}
 };
@@ -537,7 +588,7 @@ const QUESTIONS={
   sub:['Ktorý škodca vás trápi?','Pomôže nám zvoliť správny prípravok a postup.'],
   place:['O aký priestor ide?','Typ priestoru ovplyvňuje rozsah aj cenu.'],
   area:['Aká je rozloha priestoru?','Stačí približný odhad — upresníme pri obhliadke.'],
-  severity:['Ako rozsiahly je výskyt?','Podľa toho odhadneme počet potrebných zásahov.'],
+  severity:['Ako často škodcu vidíte?','Podľa toho odhadneme, koľko zásahov bude treba.'],
   addons:['Pridáte doplnkové služby?','Voliteľné — pokojne preskočte.'],
   result:['Vaša orientačná cena','Pošlite kontakt a ozveme sa s presnou ponukou.']
 };
@@ -599,12 +650,13 @@ function compute(){
    ========================================================= */
 function hero(){
   const c=state.c,sv=SERVICES[c.service];
-  const cap=`<div class="dr-hero-cap"><span class="d"></span>${sv.name} · ${PLACES[c.place].n}<span class="bdg">${sv.subs[c.sub].n}</span></div>`;
+  const cap=state.heroCap?`<div class="dr-hero-cap"><span class="d"></span>${sv.name} · ${PLACES[c.place].n}<span class="bdg">${sv.subs[c.sub].n}</span></div>`:'';
   const img=(STEPS[state.step]==='place')?IMG[c.place]:IMG[c.service];
   if(img)return `<div class="dr-hero-img" style="background-image:url('${img}')"></div><div class="dr-hero-ov"></div>${cap}`;
   return `<div class="dr-hero-svg">${I.biz}</div><div class="dr-hero-ov"></div>${cap}`;
 }
 function info(html){return `<div class="dr-info"><span class="i">i</span><p>${html}</p></div>`;}
+function ihint(t){return `<span class="dr-ih" role="button" tabindex="0" onclick="DERAT.tip(event)">i<span class="dr-tip">${t}</span></span>`;}
 
 function rService(){return Object.keys(SERVICES).map((id,i)=>{const s=SERVICES[id],sel=state.c.service===id;
   return `<button class="dr-rowcard${sel?' sel':''}" data-grp="service" data-id="${id}" style="animation-delay:${i*60}ms" onclick="DERAT.pickService('${id}',this)"><span class="dr-rowcard-img" style="background-image:url('${IMG[id]}')"></span><span class="dr-rowcard-bd"><b>${s.name}</b><span>${s.desc}</span></span><span class="dr-rowcard-pr">${eur(s.base)}<small>od</small></span></button>`;}).join('');}
@@ -624,12 +676,12 @@ function rArea(){const u=unit(),a=state.c.area,ks=u==='ks',min=ks?1:10,max=ks?40
 function rSeverity(){return `<div class="dr-list">`+Object.keys(SEVERITY).map((id,i)=>{const s=SEVERITY[id],sel=state.c.severity===id;
   return `<button class="dr-opt${sel?' sel':''}" data-grp="severity" data-id="${id}" style="animation-delay:${i*45}ms" onclick="DERAT.pickSeverity('${id}',this)"><span class="dr-rb"></span><span class="dr-opt-m"><b>${s.n}</b><span>${s.d}</span></span><span class="dr-opt-p">${s.v}</span></button>`;}).join('')+`</div>`;}
 function rAddons(){const set=new Set(state.c.addons);return `<div class="dr-list">`+Object.keys(ADDONS).map((id,i)=>{const a=ADDONS[id],sel=set.has(id);
-  return `<button class="dr-opt${sel?' sel':''}" data-grp="addon" data-id="${id}" style="animation-delay:${i*35}ms" onclick="DERAT.addon('${id}',this)"><span class="dr-rb sq"></span><span class="dr-opt-m"><b>${a.n}</b><span>${a.d}</span></span><span class="dr-opt-p">+${eur(a.p)}</span></button>`;}).join('')+`</div>`;}
+  return `<button class="dr-opt${sel?' sel':''}" data-grp="addon" data-id="${id}" style="animation-delay:${i*35}ms" onclick="DERAT.addon('${id}',this)"><span class="dr-rb sq"></span><span class="dr-opt-m"><b>${a.n}${a.i?ihint(a.i):''}</b><span>${a.d}</span></span><span class="dr-opt-p">+${eur(a.p)}</span></button>`;}).join('')+`</div>`;}
 function rResult(){const r=compute(),c=state.c;
   return `<div class="dr-result">
-    <div class="lbl">Orientačná cena (bez DPH)</div>
+    <div class="lbl">Orientačná cena (bez DPH) ${ihint('Približný odhad vypočítaný z vašich odpovedí. Presnú cenu potvrdíme po obhliadke alebo telefonicky — môže sa líšiť podľa stavu priestoru.')}</div>
     <div class="price"><span class="from">od</span><span id="dr-price" data-t="${r.total}">${eur(r.total)}</span></div>
-    <div class="rng">Zvyčajne ${eur(r.low)} – ${eur(r.high)} · s DPH ~ ${eur(r.vat)}</div>
+    <div class="rng">Zvyčajne ${eur(r.low)} – ${eur(r.high)} · s DPH ~ ${eur(r.vat)} ${ihint('DPH je daň 20 %, ktorá sa pripočítava k cene. „s DPH" je suma, ktorú reálne zaplatíte.')}</div>
     <div class="dr-bd">
       <div class="dr-bd-r"><span>${r.sv.name} – ${r.sub.n}</span><b>${r.pl.n}</b></div>
       <div class="dr-bd-r"><span>Cena za 1 zásah · ${r.qty} ${r.unit}</span><b>${eur(r.perVisit)}</b></div>
@@ -645,6 +697,10 @@ function rResult(){const r=compute(),c=state.c;
       <input id="dr-name" placeholder="Meno a priezvisko *">
       <div class="dr-lf-r"><input id="dr-phone" placeholder="Telefón *"><input id="dr-email" placeholder="E-mail"></div>
       <input id="dr-loc" placeholder="Mesto / lokalita">
+      <div class="dr-lf-r">
+        <select id="dr-term" class="dr-sel"><option value="">Kedy to potrebujete?</option><option>Čo najskôr / súrne</option><option>Tento týždeň</option><option>Budúci týždeň</option><option>Termín dohodneme</option></select>
+        <select id="dr-pref" class="dr-sel"><option value="">Ako vás kontaktovať?</option><option>Telefonicky</option><option>WhatsApp / SMS</option><option>E-mailom</option></select>
+      </div>
       <textarea id="dr-note" placeholder="Poznámka — kedy sa škodca objavuje, prístup, želaný termín…"></textarea>
       <label class="dr-cons"><input id="dr-consent" type="checkbox"><span>Súhlasím so spracovaním osobných údajov za účelom vybavenia dopytu.</span></label>
       <div id="dr-stat" class="dr-stat"></div>
@@ -664,6 +720,7 @@ function stepInner(){const k=STEPS[state.step];
   return rResult();}
 
 function render(keep){
+  if(!keep)state.heroCap=false;
   const ob=calc.querySelector('.dr-body'),sc=keep&&ob?ob.scrollTop:0;
   const k=STEPS[state.step],n=STEPS.length,prog=Math.round((state.step+1)/n*100),last=k==='result',first=state.step===0;
   const q=QUESTIONS[k],title=(k==='sub')?SERVICES[state.c.service].q:q[0],r=compute();
@@ -673,7 +730,7 @@ function render(keep){
   <div class="dr-body">
     <div class="dr-hero">${hero()}</div>
     <h3 class="dr-q">${title}</h3><div class="dr-q-sub">${q[1]}</div>
-    <div class="dr-stepbox" style="animation:drStep .3s ease">${stepInner()}</div>
+    <div class="dr-stepbox" style="animation:drStepIn .42s cubic-bezier(.2,.85,.3,1)">${stepInner()}</div>
   </div>
   <div class="dr-actions">
     ${state.step>=1&&!last?`<div class="dr-live-price"><small>od</small><b>${eur(r.total)}</b></div>`:''}
@@ -684,14 +741,7 @@ function render(keep){
 }
 function countUp(){const el=$('dr-price');if(!el)return;const t=+el.dataset.t,t0=performance.now(),dur=1100;
   (function tick(now){const p=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-p,4),v=Math.round(t*e);el.textContent=v.toLocaleString('sk-SK')+' €';
-    if(p<1)requestAnimationFrame(tick);else{el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');confetti();}})(t0);}
-function confetti(){const host=calc.querySelector('.dr-result');if(!host)return;
-  const wrap=document.createElement('div');wrap.className='dr-confetti';
-  const cols=['#406618','#5a8a24','#a6f06f','#c63a27','#e7b400','#fff'];
-  for(let i=0;i<26;i++){const s=document.createElement('i');
-    s.style.cssText=`left:${10+Math.random()*80}%;background:${cols[i%cols.length]};animation-delay:${Math.random()*.25}s;transform:rotate(${Math.random()*360}deg)`;
-    wrap.appendChild(s);}
-  host.appendChild(wrap);setTimeout(()=>wrap.remove(),1700);}
+    if(p<1)requestAnimationFrame(tick);else{el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');}})(t0);}
 
 /* =========================================================
    6) API
@@ -713,12 +763,13 @@ window.DERAT={
   _hideChips(){const ch=document.querySelector('.dr-chips');if(ch)ch.classList.add('gone');},
   submit(e){e.preventDefault();const v=inp.value.trim();if(!v)return;inp.value='';add(esc(v),'me');this._hideChips();bot(reply(v));},
   quick(t){this.open();add(esc(t),'me');this._hideChips();bot(reply(t));},
+  tip(e){e.stopPropagation();const b=e.currentTarget,open=b.classList.contains('on');document.querySelectorAll('.dr-ih.on').forEach(x=>x.classList.remove('on'));if(!open){b.classList.add('on');const r=b.getBoundingClientRect();b.classList.toggle('edge',r.left>window.innerWidth-130);}},
   _markOne(grp,el){document.querySelectorAll('.dr-body [data-grp="'+grp+'"]').forEach(b=>b.classList.toggle('sel',b===el));},
   _livePrice(){const lp=document.querySelector('.dr-live-price b');if(lp)lp.textContent=eur(compute().total);},
   _hero(){const h=calc.querySelector('.dr-hero');if(h)h.innerHTML=hero();},
-  pickService(id,el){state.c.service=id;state.c.sub=Object.keys(SERVICES[id].subs)[0];this._markOne('service',el);this._hero();this._livePrice();},
-  pickSub(id,el){state.c.sub=id;this._markOne('sub',el);this._hero();this._livePrice();},
-  pickPlace(id,el){state.c.place=id;if(unit()!=='ks')state.c.area=PLACES[id].a;this._markOne('place',el);this._hero();this._livePrice();},
+  pickService(id,el){state.c.service=id;state.c.sub=Object.keys(SERVICES[id].subs)[0];state.heroCap=true;this._markOne('service',el);this._hero();this._livePrice();},
+  pickSub(id,el){state.c.sub=id;state.heroCap=true;this._markOne('sub',el);this._hero();this._livePrice();},
+  pickPlace(id,el){state.c.place=id;if(unit()!=='ks')state.c.area=PLACES[id].a;state.heroCap=true;this._markOne('place',el);this._hero();this._livePrice();},
   pickSeverity(id,el){state.c.severity=id;this._markOne('severity',el);this._livePrice();},
   area(v){state.c.area=v;const u=unit(),el=$('dr-av');if(el){el.innerHTML=v+' <small>'+u+'</small>';const s=document.querySelector('.dr-slider');if(s){const ks=u==='ks',min=ks?1:10,max=ks?40:1000;s.style.setProperty('--p',Math.round((v-min)/(max-min)*100)+'%');s.value=v;}document.querySelectorAll('.dr-quick button').forEach(b=>b.classList.toggle('on',b.textContent.trim()===v+' '+u));this._livePrice();}},
   addon(id,el){const a=state.c.addons,i=a.indexOf(id);i>=0?a.splice(i,1):a.push(id);if(el)el.classList.toggle('sel',i<0);this._livePrice();},
@@ -727,6 +778,7 @@ window.DERAT={
   _payload(){const r=compute(),c=state.c;return{
     name:$('dr-name').value.trim(),phone:$('dr-phone').value.trim(),email:$('dr-email').value.trim(),
     loc:$('dr-loc').value.trim(),note:$('dr-note').value.trim(),
+    term:$('dr-term').value,pref:$('dr-pref').value,
     service:r.sv.name,pest:r.sub.n,place:r.pl.n,size:r.qty+' '+r.unit,severity:r.sev.n+' ('+r.sev.v+')',
     addons:c.addons.map(id=>ADDONS[id].n).join(', ')||'žiadne',price:r.total,priceRange:eur(r.low)+'–'+eur(r.high)};},
   _summary(p){return `DOPYT z kalkulačky DERAT.sk
@@ -740,6 +792,8 @@ Meno: ${p.name}
 Telefón: ${p.phone}
 E-mail: ${p.email||'-'}
 Lokalita: ${p.loc||'-'}
+Súrnosť: ${p.term||'-'}
+Kontaktovať: ${p.pref||'-'}
 Poznámka: ${p.note||'-'}`;},
   _valid(p){const st=$('dr-stat');
     if(!p.name||!p.phone){st.className='dr-stat show err';st.textContent='Vyplňte aspoň meno a telefón.';return false;}
@@ -759,6 +813,8 @@ Poznámka: ${p.note||'-'}`;},
 };
 /* zobraz teaser po načítaní (ak ešte nebol otvorený) */
 setTimeout(()=>{if(!state.open){const t=$('dr-teaser');if(t)t.classList.add('show');}},1400);
+/* zatvor info-bublinky pri kliknutí inam */
+document.addEventListener('click',()=>document.querySelectorAll('.dr-ih.on').forEach(x=>x.classList.remove('on')));
 })();
 </script>
 </body>
