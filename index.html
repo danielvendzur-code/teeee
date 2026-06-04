@@ -382,8 +382,9 @@ img{max-width:100%}
 /* ===== Info „i" bublina (vysvetlivky po kliknutí) ===== */
 .dr-ih{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;border:1.3px solid var(--g-lt);background:var(--g-50);color:var(--g);font:800 9.5px Georgia,serif;font-style:italic;cursor:pointer;vertical-align:-2px;margin-left:4px;flex:0 0 auto;transition:.15s;-webkit-tap-highlight-color:transparent}
 .dr-ih:hover,.dr-ih.on{background:var(--g);color:#fff;border-color:var(--g)}
-.dr-tip{display:none;position:fixed;width:230px;max-width:80vw;background:#1e231d;color:#fff;font:600 11.5px/1.55 var(--font);font-style:normal;padding:10px 12px;border-radius:11px;box-shadow:0 14px 34px rgba(0,0,0,.34);z-index:2147483000;text-align:left;pointer-events:none}
-.dr-ih.on .dr-tip{display:block;animation:drPop .18s ease}
+.dr-tipbox{display:none;position:fixed;left:0;top:0;width:240px;max-width:82vw;background:#1e231d;color:#fff;font:600 11.5px/1.55 var(--font);font-style:normal;padding:11px 13px;border-radius:12px;box-shadow:0 16px 40px rgba(0,0,0,.4);z-index:2147483600;text-align:left;pointer-events:none}
+.dr-tipbox.show{display:block;animation:drPop .16s ease}
+.dr-tipbox b{color:#cfe6a8}
 
 /* poznámka o počte zásahov + zľava za opakované */
 .dr-plan-note{font:600 11px/1.55 var(--font);color:#3a4a2c;background:var(--g-50);border:1px solid var(--g-100);border-radius:11px;padding:9px 11px;margin:10px 0 2px}
@@ -585,7 +586,7 @@ const SERVICES={
   dezinsekcia:{name:'Dezinsekcia',desc:'Likvidácia hmyzu',base:55,rate:.55,unit:'m²',
     q:'Ktorý hmyz potrebujete vyriešiť?',
     info:'Likvidujeme <b>lietajúci aj lezúci hmyz všetkých druhov</b> – postrekom, zadymovaním, plynovaním či požerovými nástrahami. Odborník zvolí najvhodnejší spôsob alebo ich kombináciu.',
-    subs:{svaby:{n:'Šváby / rusy',ic:'roach',m:1,v:3},plostice:{n:'Ploštice',ic:'bug',m:1.35,v:3},mravce:{n:'Mravce',ic:'ant',m:.95,v:2},blchy:{n:'Blchy',ic:'flea',m:1.1,v:2},muchy:{n:'Muchy',ic:'fly',m:.9,v:1},komare:{n:'Komáre',ic:'mosquito',m:1.05,v:1},osy:{n:'Osy / sršne',ic:'wasp',m:1.1,v:1},kliest:{n:'Kliešte',ic:'tick',m:1.05,v:1},ine:{n:'Iné / neviem',ic:'spray',ine:true}}},
+    subs:{svaby:{n:'Šváby / rusy',ic:'roach',m:1,v:2},plostice:{n:'Ploštice',ic:'bug',m:1.35,v:3},mravce:{n:'Mravce',ic:'ant',m:.95,v:2},blchy:{n:'Blchy',ic:'flea',m:1.1,v:2},muchy:{n:'Muchy',ic:'fly',m:.9,v:1},komare:{n:'Komáre',ic:'mosquito',m:1.05,v:1},osy:{n:'Osy / sršne',ic:'wasp',m:1.1,v:1},kliest:{n:'Kliešte',ic:'tick',m:1.05,v:1},ine:{n:'Iné / neviem',ic:'spray',ine:true}}},
   dezinfekcia:{name:'Dezinfekcia',desc:'Plesne, vírusy, baktérie',base:59,rate:.65,unit:'m²',
     q:'Čo potrebujete vydezinfikovať?',
     info:'Špeciálna <b>polymérová dezinfekcia</b> vás zbaví plesní, vírusov a iných nežiaducich mikroorganizmov. Vhodná aj počas pandémie COVID-19, po havárii kanalizácie či pri zvýšenom výskyte holubov.',
@@ -600,19 +601,21 @@ const PLACES={
   exterier:{n:'Exteriér',d:'pozemok, dvor',m:.95,a:300}
 };
 /* Rozsah = počet potrebných zásahov → výrazne ovplyvňuje cenu */
-/* rozsah výskytu mení ODPORÚČANÝ počet zásahov (dv) a náročnosť jedného zásahu (m) */
+/* rozsah výskytu: pri väčšom rozsahu je náročnejší (drahší) jeden zásah (m);
+   počet zásahov je daný hlavne typom škodcu, rozsah ho mení len mierne (dv), max 3 */
 const SEVERITY={
-  mierne:{n:'Len ojedinele',d:'Vidím ho výnimočne — skôr prevencia.',dv:-1,m:.92},
+  mierne:{n:'Len ojedinele',d:'Vidím ho výnimočne — skôr prevencia.',dv:-1,m:.9},
   stredne:{n:'Pravidelne',d:'Objavuje sa opakovane na viacerých miestach.',dv:0,m:1},
-  silne:{n:'Premnoženie',d:'Je takmer všade, problém je rozsiahly.',dv:1,m:1.2}
+  silne:{n:'Premnoženie',d:'Je takmer všade, problém je rozsiahly.',dv:0,m:1.35}
 };
-/* slider pre voľbu „Iné": veľkosť škodcu → náročnosť/cena (animácia rastúceho zvieratka) */
+const MAXV=3;  // strop odporúčaných zásahov
+/* slider pre voľbu „Iné": veľkosť škodcu → náročnosť/cena (rastúca animácia od hmyzu po väčšie zvieratá) */
 const ANIMALS=[
-  {e:'🐭',n:'Drobný škodca',sz:'veľkosť myši · ~7 cm',m:.8},
-  {e:'🐀',n:'Stredný škodca',sz:'veľkosť potkana · ~25 cm',m:1.05},
-  {e:'🐰',n:'Väčší škodca',sz:'veľkosť králika · ~40 cm',m:1.35},
-  {e:'🐱',n:'Veľký škodca',sz:'veľkosť mačky · ~50 cm',m:1.7},
-  {e:'🦫',n:'Veľmi veľký škodca',sz:'veľkosť bobra · ~80 cm',m:2.1}
+  {e:'🦟',n:'Drobný hmyz',sz:'pár mm (komár, mol, ploštica…)',m:.75},
+  {e:'🐜',n:'Väčší hmyz / článkonožce',sz:'~1–3 cm (mravce, šváby, pavúky…)',m:.9},
+  {e:'🐭',n:'Malý živočích',sz:'veľkosť myši · ~7 cm',m:1.1},
+  {e:'🐀',n:'Stredný živočích',sz:'veľkosť potkana · ~25 cm',m:1.4},
+  {e:'🦫',n:'Veľký živočích',sz:'veľkosť bobra / kuny · ~50–80 cm',m:1.9}
 ];
 const ADDONS={
   protokol:{n:'Písomné potvrdenie o zásahu',d:'Doklad pre úrady a kontroly (napr. v gastre).',p:19,i:'Tlačený alebo PDF doklad, že zásah prebehol. Vyžaduje ho hygiena a HACCP — najmä v reštauráciách, potravinárstve a firmách.'},
@@ -622,6 +625,10 @@ const ADDONS={
 };
 const PROCESS='<b>Ako prebieha zásah:</b> obhliadka a konzultácia → návrh riešenia a cena → zásah certifikovaným prípravkom → protokol a podľa potreby kontrolný zásah. Na zásahy poskytujeme garanciu.';
 const STEPS=['service','sub','place','area','severity','addons','result'];
+/* dynamický sled krokov: pri dezinfekcii (okrem holubov) vynecháme otázku „ako často škodcu vidíte" */
+function flow(){const c=state.c;
+  if(c.service==='dezinfekcia'&&c.sub!=='holuby')return STEPS.filter(s=>s!=='severity');
+  return STEPS;}
 const QUESTIONS={
   service:['S čím vám môžeme pomôcť?','Vyberte službu — ukážka aj ceny sa prispôsobia.'],
   sub:['Ktorý škodca vás trápi?','Pomôže nám zvoliť správny prípravok a postup.'],
@@ -679,7 +686,8 @@ function compute(){
   const isIne=!!sub.ine, subM=isIne?ANIMALS[c.ineSize].m:sub.m;
   const qty=sv.unit==='ks'?Math.max(1,c.area):c.area;
   const perVisit=(sv.base+sv.rate*qty*subM*pl.m)*sev.m;     // cena jedného zásahu
-  const visits=Math.max(1,(isIne?2:(sub.v||1))+sev.dv);     // odporúčaný počet zásahov
+  const baseV=isIne?(c.service==='dezinfekcia'?1:2):(sub.v||1);
+  const visits=Math.min(MAXV,Math.max(1,baseV+sev.dv));     // odporúčaný počet zásahov (max 3)
   const adds=c.addons.reduce((a,id)=>a+(ADDONS[id]?ADDONS[id].p:0),0);
   let sum=perVisit*(1+(visits-1)*REPEAT)+adds;              // 1. zásah plný + opakované so zľavou
   if(sum<MIN)sum=MIN;
@@ -697,12 +705,13 @@ function heroCap(){const c=state.c,sv=SERVICES[c.service];
   return state.heroCap?`<div class="dr-hero-cap"><span class="d"></span>${sv.name} · ${PLACES[c.place].n}<span class="bdg">${sv.subs[c.sub].n}</span></div>`:'';}
 function hero(){
   const c=state.c,cap=heroCap();
-  const img=(STEPS[state.step]==='place')?IMG[c.place]:IMG[c.service];
+  const img=(flow()[state.step]==='place')?IMG[c.place]:IMG[c.service];
   if(img)return `<div class="dr-hero-img" style="background-image:url('${img}')"></div><div class="dr-hero-ov"></div>${cap}`;
   return `<div class="dr-hero-svg">${I.biz}</div><div class="dr-hero-ov"></div>${cap}`;
 }
 function info(html){return `<div class="dr-info"><span class="i">i</span><p>${html}</p></div>`;}
-function ihint(t){return `<span class="dr-ih" role="button" tabindex="0" onclick="DERAT.tip(event)">i<span class="dr-tip">${t}</span></span>`;}
+let TIPS=[];
+function ihint(t){const i=TIPS.push(t)-1;return `<span class="dr-ih" role="button" tabindex="0" aria-label="Vysvetlenie" onclick="DERAT.tip(event,${i})">i</span>`;}
 
 function rService(){return Object.keys(SERVICES).map((id,i)=>{const s=SERVICES[id],sel=state.c.service===id;
   return `<button class="dr-rowcard${sel?' sel':''}" data-grp="service" data-id="${id}" style="animation-delay:${i*60}ms" onclick="DERAT.pickService('${id}',this)"><span class="dr-rowcard-img" style="background-image:url('${IMG[id]}')"></span><span class="dr-rowcard-bd"><b>${s.name}</b><span>${s.desc}</span></span><span class="dr-rowcard-pr">${eur(s.base)}<small>od</small></span></button>`;}).join('');}
@@ -720,18 +729,20 @@ function rArea(){const u=unit(),a=state.c.area,ks=u==='ks',min=ks?1:10,max=ks?40
     <div class="dr-quick">${quick.map(v=>`<button class="${v===a?'on':''}" onclick="DERAT.area(${v})">${v} ${u}</button>`).join('')}</div>
   </div>`;}
 function rSeverity(){const sub=SERVICES[state.c.service].subs[state.c.sub],base=sub.ine?2:(sub.v||1);
-  return `<div class="dr-list">`+Object.keys(SEVERITY).map((id,i)=>{const s=SEVERITY[id],sel=state.c.severity===id,v=Math.max(1,base+s.dv),vt=v+' '+(v===1?'zásah':(v<5?'zásahy':'zásahov'));
+  return `<div class="dr-list">`+Object.keys(SEVERITY).map((id,i)=>{const s=SEVERITY[id],sel=state.c.severity===id,v=Math.min(MAXV,Math.max(1,base+s.dv)),vt=v+' '+(v===1?'zásah':(v<5?'zásahy':'zásahov'));
   return `<button class="dr-opt${sel?' sel':''}" data-grp="severity" data-id="${id}" style="animation-delay:${i*45}ms" onclick="DERAT.pickSeverity('${id}',this)"><span class="dr-rb"></span><span class="dr-opt-m"><b>${s.n}</b><span>${s.d}</span></span><span class="dr-opt-p">${vt}</span></button>`;}).join('')+`</div>`;}
 function rIne(){const c=state.c,a=ANIMALS[c.ineSize],p=Math.round(c.ineSize/(ANIMALS.length-1)*100);
-  return `<div class="dr-ine">
-    <input id="dr-ine-txt" class="dr-ine-txt" placeholder="Napíšte, čo vás trápi (napr. kuna, plch, had…)" value="${(c.ineText||'').replace(/"/g,'&quot;')}" oninput="DERAT.ineText(this.value)">
+  const ph=c.service==='dezinfekcia'?'Napíšte, čo potrebujete vydezinfikovať…':'Napíšte, čo vás trápi (napr. kuna, plch, hmyz…)';
+  const size=c.service==='dezinfekcia'?'':`
     <div class="dr-size">
       <div class="dr-size-emoji" id="dr-size-emoji" style="font-size:${30+c.ineSize*13}px">${a.e}</div>
       <div class="dr-size-lbl" id="dr-size-lbl"><b>${a.n}</b><span>${a.sz}</span></div>
       <input class="dr-slider" type="range" min="0" max="${ANIMALS.length-1}" step="1" value="${c.ineSize}" style="--p:${p}%" oninput="DERAT.ineSize(+this.value)">
-      <div class="dr-scale"><span>malý škodca</span><span>veľký škodca</span></div>
-      <div class="dr-size-hint">Čím väčší škodca, tým náročnejší zásah a vyššia cena.</div>
-    </div>
+      <div class="dr-scale"><span>najmenší (hmyz)</span><span>najväčší</span></div>
+      <div class="dr-size-hint">Posuňte podľa veľkosti škodcu — čím väčší, tým náročnejší zásah a vyššia cena.</div>
+    </div>`;
+  return `<div class="dr-ine">
+    <input id="dr-ine-txt" class="dr-ine-txt" placeholder="${ph}" value="${(c.ineText||'').replace(/"/g,'&quot;')}" oninput="DERAT.ineText(this.value)">${size}
   </div>`;}
 function rAddons(){const set=new Set(state.c.addons);return `<div class="dr-list">`+Object.keys(ADDONS).map((id,i)=>{const a=ADDONS[id],sel=set.has(id);
   return `<button class="dr-opt${sel?' sel':''}" data-grp="addon" data-id="${id}" style="animation-delay:${i*35}ms" onclick="DERAT.addon('${id}',this)"><span class="dr-rb sq"></span><span class="dr-opt-m"><b>${a.n}${a.i?ihint(a.i):''}</b><span>${a.d}</span></span><span class="dr-opt-p">+${eur(a.p)}</span></button>`;}).join('')+`</div>`;}
@@ -774,7 +785,7 @@ function rResult(){const r=compute(),c=state.c;
       </div>
     </div>
   </div>`;}
-function stepInner(){const k=STEPS[state.step];
+function stepInner(){const k=flow()[state.step];
   if(k==='service')return '<div class="dr-rows">'+rService()+'</div>';
   if(k==='sub')return info(SERVICES[state.c.service].info)+'<div class="dr-grid tri">'+rSub()+'</div>'+(state.c.sub==='ine'?rIne():'');
   if(k==='place')return '<div class="dr-grid">'+rPlace()+'</div>';
@@ -784,9 +795,11 @@ function stepInner(){const k=STEPS[state.step];
   return rResult();}
 
 function render(keep){
+  TIPS=[];const _tb=document.getElementById('dr-tipbox');if(_tb)_tb.classList.remove('show');
   if(!keep)state.heroCap=false;
   const ob=calc.querySelector('.dr-body'),sc=keep&&ob?ob.scrollTop:0;
-  const k=STEPS[state.step],n=STEPS.length,prog=Math.round((state.step+1)/n*100),last=k==='result',first=state.step===0;
+  const ST=flow();if(state.step>=ST.length)state.step=ST.length-1;
+  const k=ST[state.step],n=ST.length,prog=Math.round((state.step+1)/n*100),last=k==='result',first=state.step===0;
   const q=QUESTIONS[k],title=(k==='sub')?SERVICES[state.c.service].q:q[0],r=compute();
   calc.innerHTML=`
   <div class="dr-chead"><b>Cenová kalkulačka</b><button class="dr-x" onclick="DERAT.closeCalc()">×</button></div>
@@ -827,16 +840,20 @@ window.DERAT={
   _hideChips(){const ch=document.querySelector('.dr-chips');if(ch)ch.classList.add('gone');},
   submit(e){e.preventDefault();const v=inp.value.trim();if(!v)return;inp.value='';add(esc(v),'me');this._hideChips();bot(reply(v));},
   quick(t){this.open();add(esc(t),'me');this._hideChips();bot(reply(t));},
-  tip(e){e.stopPropagation();const b=e.currentTarget,was=b.classList.contains('on');document.querySelectorAll('.dr-ih.on').forEach(x=>x.classList.remove('on'));if(was)return;
-    b.classList.add('on');const tp=b.querySelector('.dr-tip');if(!tp)return;
-    tp.style.left='0px';tp.style.top='0px';const w=tp.offsetWidth,h=tp.offsetHeight,r=b.getBoundingClientRect();
-    let x=r.left+r.width/2-w/2;x=Math.max(8,Math.min(x,window.innerWidth-w-8));
-    let y=r.bottom+8;if(y+h>window.innerHeight-8)y=r.top-h-8;          // ak sa nezmestí dole, ukáž hore
-    tp.style.left=x+'px';tp.style.top=y+'px';},
+  tip(e,i){e.stopPropagation();const b=e.currentTarget,tb=$('dr-tipbox');if(!tb)return;
+    const wasOn=b.classList.contains('on');
+    document.querySelectorAll('.dr-ih.on').forEach(x=>x.classList.remove('on'));
+    if(wasOn){tb.classList.remove('show');return;}                    // druhý klik na tú istú = zavrieť
+    b.classList.add('on');tb.innerHTML=TIPS[i]||'';tb.classList.add('show');
+    tb.style.left='0px';tb.style.top='0px';                            // zmeraj rozmery v ľavom hornom rohu
+    const w=tb.offsetWidth,h=tb.offsetHeight,r=b.getBoundingClientRect();
+    let x=Math.max(8,Math.min(r.left+r.width/2-w/2,window.innerWidth-w-8));
+    let y=r.bottom+8;if(y+h>window.innerHeight-8)y=Math.max(8,r.top-h-8);
+    tb.style.left=x+'px';tb.style.top=y+'px';},
   _markOne(grp,el){document.querySelectorAll('.dr-body [data-grp="'+grp+'"]').forEach(b=>b.classList.toggle('sel',b===el));},
   _livePrice(){const lp=document.querySelector('.dr-live-price b');if(lp)lp.textContent=eur(compute().total);},
   _hero(){const h=calc.querySelector('.dr-hero');if(!h)return;
-    const ni=(STEPS[state.step]==='place')?IMG[state.c.place]:IMG[state.c.service];
+    const ni=(flow()[state.step]==='place')?IMG[state.c.place]:IMG[state.c.service];
     if((h.getAttribute('data-img')||'')===(ni||'')){          // rovnaký obrázok → meníme len popisok, nereštartujeme animáciu
       const cur=h.querySelector('.dr-hero-cap'),cap=heroCap();
       if(cur)cur.outerHTML=cap||'';else if(cap)h.insertAdjacentHTML('beforeend',cap);
@@ -858,7 +875,7 @@ window.DERAT={
   photoClear(){state.photo=null;const i=$('dr-photo');if(i)i.value='';const box=$('dr-photo-prev');if(box)box.innerHTML='';},
   area(v){state.c.area=v;const u=unit(),el=$('dr-av');if(el){el.innerHTML=v+' <small>'+u+'</small>';const s=document.querySelector('.dr-slider');if(s){const ks=u==='ks',min=ks?1:10,max=ks?40:1000;s.style.setProperty('--p',Math.round((v-min)/(max-min)*100)+'%');s.value=v;}document.querySelectorAll('.dr-quick button').forEach(b=>b.classList.toggle('on',b.textContent.trim()===v+' '+u));this._livePrice();}},
   addon(id,el){const a=state.c.addons,i=a.indexOf(id);i>=0?a.splice(i,1):a.push(id);if(el)el.classList.toggle('sel',i<0);this._livePrice();},
-  next(){state.step<STEPS.length-1?state.step++:(state.step=0);render(false);},
+  next(){state.step<flow().length-1?state.step++:(state.step=0);render(false);},
   prev(){if(state.step>0)state.step--;render(false);},
   _payload(){const r=compute(),c=state.c;return{
     name:$('dr-name').value.trim(),phone:$('dr-phone').value.trim(),email:$('dr-email').value.trim(),
@@ -899,8 +916,12 @@ Poznámka: ${p.note||'-'}`;},
 };
 /* zobraz teaser po načítaní (ak ešte nebol otvorený) */
 setTimeout(()=>{if(!state.open){const t=$('dr-teaser');if(t)t.classList.add('show');}},1400);
-/* zatvor info-bublinky pri kliknutí inam */
-document.addEventListener('click',()=>document.querySelectorAll('.dr-ih.on').forEach(x=>x.classList.remove('on')));
+/* info-tooltip ako „portal" priamo v body — nikdy nie je orezaný a pozicuje sa voči viewportu */
+const _tipbox=document.createElement('div');_tipbox.id='dr-tipbox';_tipbox.className='dr-tipbox';document.body.appendChild(_tipbox);
+/* zatvor info-bublinu pri kliknutí inam alebo pri scrolle */
+function _closeTip(){document.querySelectorAll('.dr-ih.on').forEach(x=>x.classList.remove('on'));_tipbox.classList.remove('show');}
+document.addEventListener('click',_closeTip);
+window.addEventListener('scroll',_closeTip,true);
 })();
 </script>
 </body>
