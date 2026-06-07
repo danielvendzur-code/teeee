@@ -89,7 +89,7 @@ img{max-width:100%}
 @media(max-width:480px){#dr-teaser{right:16px;bottom:90px;max-width:220px}}
 
 /* ===== Okno ===== */
-#derat-chat{position:fixed;right:20px;bottom:96px;z-index:99999;width:460px;height:min(700px,calc(100vh - 112px));max-height:700px;border-radius:24px;background:#fff;border:1px solid var(--line);box-shadow:var(--sh);display:flex;flex-direction:column;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(20px) scale(.96);transform-origin:bottom right;transition:.3s cubic-bezier(.2,.8,.2,1)}
+#derat-chat{position:fixed;right:20px;bottom:96px;z-index:99999;width:464px;height:min(840px,calc(100vh - 104px));max-height:840px;border-radius:24px;background:#fff;border:1px solid var(--line);box-shadow:var(--sh);display:flex;flex-direction:column;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(20px) scale(.96);transform-origin:bottom right;transition:.3s cubic-bezier(.2,.8,.2,1)}
 #derat-chat.show{opacity:1;pointer-events:auto;transform:none}
 
 /* hlavička – zarovnaná */
@@ -192,9 +192,13 @@ img{max-width:100%}
 .dr-prog-n{font:900 11px var(--font);color:var(--g);white-space:nowrap}
 
 .dr-body{flex:1;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:0 13px 8px}
+.dr-more{position:sticky;bottom:0;height:40px;margin:-40px 0 0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:7px;pointer-events:none;opacity:0;transition:opacity .25s;z-index:6;background:linear-gradient(transparent,rgba(246,249,241,.92) 78%)}
+.dr-body.scrollable:not(.atbottom) .dr-more{opacity:1}
+.dr-more span{background:var(--g-dk);color:#fff;font:800 9.5px var(--font);letter-spacing:.3px;text-transform:uppercase;padding:5px 12px;border-radius:999px;box-shadow:0 6px 16px rgba(46,74,17,.34);animation:drMoreB 1.4s ease-in-out infinite}
+@keyframes drMoreB{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
 
 /* hero foto – čistá, ľahký overlay len dole pod popisom */
-.dr-hero{position:relative;border-radius:var(--r);overflow:hidden;background:#dfe7d4;aspect-ratio:16/9;margin-bottom:13px;border:1px solid var(--line)}
+.dr-hero{position:relative;border-radius:var(--r);overflow:hidden;background:#dfe7d4;height:132px;margin-bottom:11px;border:1px solid var(--line)}
 .dr-hero-img{position:absolute;inset:0;background-size:cover;background-position:center;animation:drKen 18s ease-in-out infinite alternate}
 .dr-hero-ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(20,28,16,.62))}
 .dr-hero-svg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 70% 25%,#fff,transparent 50%),linear-gradient(180deg,#e3ecd6,#fff)}
@@ -207,28 +211,33 @@ img{max-width:100%}
 .dr-q-sub{font-size:11.5px;font-weight:500;color:var(--muted);line-height:1.4;margin-bottom:12px}
 
 /* info box */
-.dr-info{display:flex;gap:9px;background:var(--g-50);border:1px solid rgba(64,102,24,.18);border-radius:13px;padding:10px 12px;margin-bottom:12px;animation:drStep .3s ease}
-.dr-info .i{flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;font:900 13px var(--font)}
-.dr-info p{margin:0;font:500 11.3px/1.5 var(--font);color:#3a4a2c}
-.dr-info b{color:var(--g-dk)}
+.dr-info{background:var(--g-50);border:1px solid rgba(64,102,24,.18);border-radius:13px;margin-bottom:11px;overflow:hidden;animation:drStep .3s ease}
+.dr-info-h{width:100%;display:flex;align-items:center;gap:9px;background:none;border:0;cursor:pointer;padding:9px 11px;font:700 11.5px var(--font);color:var(--g-dk);text-align:left;-webkit-tap-highlight-color:transparent}
+.dr-info .i{flex:0 0 20px;width:20px;height:20px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;font:900 12px var(--font)}
+.dr-info-lead{flex:1}
+.dr-info-ar{transition:transform .25s;font-size:10px;color:var(--g)}
+.dr-info.open .dr-info-ar{transform:rotate(180deg)}
+.dr-info-txt{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.dr-info.open .dr-info-txt{max-height:260px}
+.dr-info-txt p{margin:0;padding:0 12px 11px 40px;font:500 11.3px/1.5 var(--font);color:#3a4a2c}
+.dr-info-txt b{color:var(--g-dk)}
 
 /* karty s fotkou (služba, priestor) */
 .dr-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .dr-grid.tri{grid-template-columns:1fr 1fr 1fr}
 /* zoznam služieb na celú šírku */
 .dr-rows{display:flex;flex-direction:column;gap:9px}
-/* service čip = foto cez celý čip + tmavý prelív + biely text */
-.dr-rowcard{position:relative;isolation:isolate;display:flex;align-items:flex-end;gap:10px;min-height:96px;border:1.8px solid var(--line);border-radius:15px;overflow:hidden;cursor:pointer;text-align:left;padding:12px 14px;transition:.16s;animation:drStep .35s ease both}
-.dr-rowcard-img{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;background-color:#cdd8bf}
-.dr-rowcard::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(14,21,7,.84) 0%,rgba(14,21,7,.52) 52%,rgba(14,21,7,.3) 100%)}
-.dr-rowcard:hover{border-color:var(--g-lt);transform:translateY(-2px);box-shadow:0 12px 22px rgba(46,74,17,.22)}
-.dr-rowcard.sel{border-color:var(--g);box-shadow:0 0 0 3px rgba(64,102,24,.5),0 10px 22px rgba(46,74,17,.2)}
-.dr-rowcard-bd{position:relative;z-index:2;flex:1;min-width:0}
-.dr-rowcard-bd b{font-size:16px;font-weight:800;color:#fff;display:block;line-height:1.15;text-shadow:0 1px 5px rgba(0,0,0,.6)}
-.dr-rowcard-bd span{font-size:11.5px;font-weight:600;color:rgba(255,255,255,.92);line-height:1.3;display:block;margin-top:2px;text-shadow:0 1px 4px rgba(0,0,0,.6)}
-.dr-rowcard-pr{position:relative;z-index:2;text-align:right;font:900 15px var(--font);color:#fff;white-space:nowrap;text-shadow:0 1px 5px rgba(0,0,0,.6)}
-.dr-rowcard-pr small{display:block;font:700 9px var(--font);color:rgba(255,255,255,.85);letter-spacing:.3px}
-.dr-rowcard.sel:after{content:"✓";position:absolute;right:8px;top:8px;left:auto;z-index:3;width:22px;height:22px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;font:900 12px var(--font);animation:drPop .3s ease;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+/* service čip = foto vľavo (plná výška), text + cena vpravo */
+.dr-rowcard{position:relative;display:flex;align-items:stretch;min-height:84px;border:1.8px solid var(--line);background:#fff;border-radius:15px;overflow:hidden;cursor:pointer;text-align:left;transition:.16s;animation:drStep .35s ease both}
+.dr-rowcard-img{flex:0 0 102px;align-self:stretch;background-size:cover;background-position:center;background-color:#cdd8bf}
+.dr-rowcard:hover{border-color:var(--g-lt);transform:translateY(-2px);box-shadow:0 10px 20px rgba(46,74,17,.14)}
+.dr-rowcard.sel{border-color:var(--g);box-shadow:0 0 0 3px rgba(64,102,24,.18)}
+.dr-rowcard-bd{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:11px 6px 11px 14px}
+.dr-rowcard-bd b{font-size:14.5px;font-weight:800;color:var(--ink);display:block;line-height:1.15}
+.dr-rowcard-bd span{font-size:11px;font-weight:500;color:var(--muted);line-height:1.3;display:block;margin-top:2px}
+.dr-rowcard-pr{flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;padding:0 14px;font:900 14px var(--font);color:var(--g);white-space:nowrap}
+.dr-rowcard-pr small{font:600 9px var(--font);color:var(--muted);letter-spacing:.3px;margin-top:1px}
+.dr-rowcard.sel:after{content:"✓";position:absolute;left:8px;top:8px;z-index:3;width:21px;height:21px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;font:900 12px var(--font);animation:drPop .3s ease;box-shadow:0 2px 6px rgba(0,0,0,.4)}
 .dr-pcard{position:relative;border:1.8px solid var(--line);background:#fff;border-radius:15px;overflow:hidden;cursor:pointer;text-align:left;transition:.16s;animation:drStep .35s ease both;display:flex;flex-direction:column;height:122px}
 .dr-pcard:hover{border-color:var(--g-lt);transform:translateY(-2px);box-shadow:0 10px 20px rgba(46,74,17,.12)}
 .dr-pcard.sel{border-color:var(--g);box-shadow:0 0 0 3px rgba(64,102,24,.16)}
@@ -571,20 +580,20 @@ const MOUSE='<svg class="dr-mouse" viewBox="0 0 24 24" aria-hidden="true"><path 
 
 /* Ikony škodcov / priestorov (jednotná veľkosť, viewBox 64) */
 const I={
-  rat:`<svg viewBox="0 0 64 64"><ellipse cx="30" cy="42" rx="20" ry="11" fill="#7a6b5d"/><circle cx="50" cy="36" r="9" fill="#8a7a6b"/><circle cx="47" cy="29" r="4.5" fill="#9a8a7b"/><circle cx="55" cy="29" r="4.5" fill="#9a8a7b"/><circle cx="50" cy="36" r="2" fill="#222"/><path d="M58 38c4 0 6 2 6 2" stroke="#c63a27" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M12 46c-8 2-10 7-10 7" stroke="#7a6b5d" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
-  mouse:`<svg viewBox="0 0 64 64"><ellipse cx="28" cy="42" rx="17" ry="10" fill="#8a8d92"/><circle cx="43" cy="37" r="8" fill="#9aa0a6"/><circle cx="40" cy="30" r="4.5" fill="#aab0b6"/><circle cx="48" cy="30" r="4.5" fill="#aab0b6"/><circle cx="44" cy="37" r="1.8" fill="#222"/><path d="M13 46c-7 1-9 6-9 6" stroke="#8a8d92" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
-  roach:`<svg viewBox="0 0 64 64"><ellipse cx="32" cy="35" rx="13" ry="19" fill="#5b3a1e"/><ellipse cx="32" cy="27" rx="8" ry="8" fill="#724a26"/><path d="M30 13l-4-7M34 13l4-7" stroke="#724a26" stroke-width="2.2" stroke-linecap="round"/><path d="M19 31l-11-4M19 39l-11 2M19 47l-9 5M45 31l11-4M45 39l11 2M45 47l9 5" stroke="#5b3a1e" stroke-width="2.2" stroke-linecap="round"/></svg>`,
-  ant:`<svg viewBox="0 0 64 64"><circle cx="20" cy="33" r="6.5" fill="#3a2412"/><circle cx="33" cy="33" r="5.5" fill="#4a3018"/><circle cx="46" cy="33" r="8" fill="#3a2412"/><path d="M14 27l-6-6M14 33H6M14 39l-6 6M33 27l-2-10M33 39l-2 10" stroke="#3a2412" stroke-width="2" stroke-linecap="round"/><path d="M40 24l-3-7M52 24l3-7" stroke="#4a3018" stroke-width="2" stroke-linecap="round"/></svg>`,
-  bug:`<svg viewBox="0 0 64 64"><ellipse cx="32" cy="36" rx="14" ry="16" fill="#7a3b1e"/><path d="M32 20v32" stroke="#3a1c0e" stroke-width="2"/><circle cx="32" cy="17" r="6.5" fill="#5b2c16"/><path d="M28 10l-4-6M36 10l4-6" stroke="#5b2c16" stroke-width="2" stroke-linecap="round"/><path d="M18 31l-10-3M18 41l-10 3M46 31l10-3M46 41l10 3" stroke="#7a3b1e" stroke-width="2.2" stroke-linecap="round"/></svg>`,
-  flea:`<svg viewBox="0 0 64 64"><ellipse cx="34" cy="34" rx="11" ry="15" fill="#4a2a14" transform="rotate(18 34 34)"/><circle cx="26" cy="22" r="5" fill="#3a2010"/><path d="M22 20l-9-8M40 44l9 10M44 40l9 6" stroke="#4a2a14" stroke-width="2.2" stroke-linecap="round"/></svg>`,
-  fly:`<svg viewBox="0 0 64 64"><ellipse cx="32" cy="38" rx="9" ry="14" fill="#2f3a43"/><circle cx="32" cy="20" r="7" fill="#1f2937"/><circle cx="29" cy="18" r="2.4" fill="#c63a27"/><circle cx="35" cy="18" r="2.4" fill="#c63a27"/><ellipse cx="18" cy="30" rx="13" ry="6" fill="#cfe0ee" opacity=".7" transform="rotate(-22 18 30)"/><ellipse cx="46" cy="30" rx="13" ry="6" fill="#cfe0ee" opacity=".7" transform="rotate(22 46 30)"/></svg>`,
-  mosquito:`<svg viewBox="0 0 64 64"><ellipse cx="34" cy="36" rx="5.5" ry="13" fill="#4a4f55" transform="rotate(20 34 36)"/><circle cx="28" cy="22" r="5.5" fill="#5a5f65"/><path d="M24 18 8 8" stroke="#4a4f55" stroke-width="2" stroke-linecap="round"/><ellipse cx="20" cy="26" rx="13" ry="5" fill="#cfe0ee" opacity=".6" transform="rotate(-18 20 26)"/><ellipse cx="40" cy="24" rx="13" ry="5" fill="#cfe0ee" opacity=".6" transform="rotate(14 40 24)"/><path d="M40 44l8 10M44 42l10 6" stroke="#4a4f55" stroke-width="2" stroke-linecap="round"/></svg>`,
-  wasp:`<svg viewBox="0 0 64 64"><ellipse cx="32" cy="38" rx="10" ry="15" fill="#e7b400"/><path d="M22 32h20M22 40h20M24 47h16" stroke="#1f1f1f" stroke-width="3"/><circle cx="32" cy="19" r="6.5" fill="#3a2a00"/><ellipse cx="20" cy="28" rx="9" ry="4.5" fill="#cfe8ff" opacity=".7" transform="rotate(-25 20 28)"/><ellipse cx="44" cy="28" rx="9" ry="4.5" fill="#cfe8ff" opacity=".7" transform="rotate(25 44 28)"/></svg>`,
-  tick:`<svg viewBox="0 0 64 64"><ellipse cx="32" cy="37" rx="14" ry="12" fill="#5b3a1e"/><circle cx="32" cy="23" r="5.5" fill="#3a2412"/><path d="M18 31l-8-4M18 37H8M18 43l-8 4M46 31l8-4M46 37h10M46 43l8 4" stroke="#5b3a1e" stroke-width="2" stroke-linecap="round"/></svg>`,
-  mold:`<svg viewBox="0 0 64 64"><path d="M8 50c0-10 8-14 8-22 0 8 6 10 6 18M22 50c0-8 6-12 6-20 0 8 6 10 6 18M36 50c0-9 7-13 7-22 0 9 6 11 6 18" stroke="#4a5a2a" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="16" cy="22" r="5" fill="#6b7d3a"/><circle cx="30" cy="16" r="5" fill="#4a5a2a"/><circle cx="44" cy="22" r="6" fill="#6b7d3a"/></svg>`,
-  virus:`<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="12" fill="#c63a27"/><g stroke="#c63a27" stroke-width="3" stroke-linecap="round"><path d="M32 20V9M32 44v11M20 32H9M44 32h11M23 23l-7-7M41 41l7 7M41 23l7-7M23 41l-7 7"/></g><circle cx="28" cy="30" r="2.4" fill="#fff"/><circle cx="36" cy="36" r="2" fill="#fff"/></svg>`,
-  pigeon:`<svg viewBox="0 0 64 64"><ellipse cx="30" cy="36" rx="15" ry="10" fill="#8b95a1"/><circle cx="45" cy="28" r="7" fill="#9aa3ae"/><path d="M50 26l6-2" stroke="#e7b400" stroke-width="3" stroke-linecap="round"/><circle cx="46" cy="27" r="1.6" fill="#222"/><path d="M16 38c-8 0-12 6-12 6M24 46l-3 8M32 46l1 8" stroke="#8b95a1" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
-  spray:`<svg viewBox="0 0 64 64"><rect x="22" y="22" width="20" height="32" rx="4" fill="#406618"/><rect x="26" y="14" width="12" height="10" rx="2" fill="#5a8a24"/><rect x="38" y="10" width="6" height="6" rx="1" fill="#2e4a11"/><path d="M48 8l8-2M48 14h9M48 20l8 4" stroke="#5a8a24" stroke-width="2.4" stroke-linecap="round"/></svg>`,
+  rat:`<svg viewBox="0 0 64 64"><ellipse cx="29" cy="41" rx="21" ry="12.5" fill="#8d8377"/><ellipse cx="29" cy="43" rx="16" ry="8" fill="#9d9286"/><circle cx="47" cy="33" r="9.5" fill="#8d8377"/><circle cx="44" cy="25" r="5" fill="#a59a8d"/><circle cx="51" cy="25" r="5" fill="#a59a8d"/><circle cx="50" cy="34" r="2.4" fill="#2b2620"/><circle cx="55.5" cy="37" r="1.6" fill="#e79ca8"/><path d="M56 36h6M56 39l6 1.5M56 33l6-1.5" stroke="#b9afa2" stroke-width="1.3" stroke-linecap="round"/><path d="M9 45c-6 2-7 8-4 11" stroke="#8d8377" stroke-width="3.2" fill="none" stroke-linecap="round"/></svg>`,
+  mouse:`<svg viewBox="0 0 64 64"><ellipse cx="30" cy="41" rx="19" ry="11.5" fill="#9aa0a8"/><circle cx="44" cy="31" r="11" fill="#9aa0a8"/><circle cx="40" cy="21" r="6.5" fill="#aab0b8"/><circle cx="40" cy="21" r="3.4" fill="#c7ccd2"/><circle cx="48" cy="32" r="2.3" fill="#2b2f36"/><circle cx="53" cy="35" r="1.6" fill="#f2a7b8"/><path d="M53 34h7M53 37l6 1.5" stroke="#c2c7cd" stroke-width="1.3" stroke-linecap="round"/><path d="M12 45c-6 1-7 6-4 9" stroke="#9aa0a8" stroke-width="3.2" fill="none" stroke-linecap="round"/></svg>`,
+  roach:`<svg viewBox="0 0 64 64"><ellipse cx="32" cy="37" rx="13.5" ry="19" fill="#6b4423"/><ellipse cx="32" cy="30" rx="9.5" ry="9" fill="#80532c"/><ellipse cx="32" cy="41" rx="5.5" ry="13" fill="#5a3a1e"/><circle cx="28" cy="22" r="2" fill="#3a2613"/><circle cx="36" cy="22" r="2" fill="#3a2613"/><path d="M28 18c-3-5-7-7-12-7M36 18c3-5 7-7 12-7" stroke="#6b4423" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M18.5 31l-10-4M18.5 38l-11 1M18.5 45l-9 6M45.5 31l10-4M45.5 38l11 1M45.5 45l9 6" stroke="#5a3a1e" stroke-width="2" stroke-linecap="round"/></svg>`,
+  ant:`<svg viewBox="0 0 64 64"><circle cx="18" cy="32" r="7" fill="#46301c"/><ellipse cx="31" cy="32" rx="5.5" ry="6.5" fill="#5a3d24"/><circle cx="46" cy="33" r="9" fill="#46301c"/><path d="M24.5 32h4M37 32h1.5" stroke="#2e1f12" stroke-width="2"/><circle cx="15" cy="29" r="1.4" fill="#1f140b"/><path d="M14 27c-2-4-2-8 0-11M21 27c2-5 5-7 9-7" stroke="#46301c" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M30 36l-6 9M33 37l1 10M37 36l7 9M27 35l-8 6M40 35l8 4" stroke="#46301c" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+  bug:`<svg viewBox="0 0 64 64"><ellipse cx="32" cy="36" rx="17" ry="15" fill="#8a4326"/><path d="M32 22v28" stroke="#5e2c17" stroke-width="2"/><path d="M22 25c4 3 4 9 0 13M42 25c-4 3-4 9 0 13" stroke="#6e371f" stroke-width="1.6" fill="none"/><circle cx="32" cy="19" r="6" fill="#6e371f"/><path d="M28 14l-4-5M36 14l4-5" stroke="#6e371f" stroke-width="1.8" stroke-linecap="round"/><path d="M16 30l-8-3M16 40l-8 3M48 30l8-3M48 40l8 3" stroke="#8a4326" stroke-width="2" stroke-linecap="round"/></svg>`,
+  flea:`<svg viewBox="0 0 64 64"><ellipse cx="34" cy="34" rx="12" ry="16" fill="#5a3420" transform="rotate(20 34 34)"/><ellipse cx="33" cy="29" rx="7" ry="9" fill="#6e4228" transform="rotate(20 33 29)"/><circle cx="25" cy="22" r="5" fill="#46291a"/><circle cx="23" cy="20" r="1.3" fill="#1f120a"/><path d="M21 19c-3-3-7-4-10-3" stroke="#5a3420" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M40 43c4 3 6 9 5 14M45 40c5 2 9 6 10 11M36 46c1 5 0 10-3 13" stroke="#5a3420" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>`,
+  fly:`<svg viewBox="0 0 64 64"><ellipse cx="32" cy="41" rx="10" ry="15" fill="#2d3640"/><ellipse cx="32" cy="37" rx="7" ry="8" fill="#3a4550"/><circle cx="32" cy="23" r="8" fill="#1f2630"/><circle cx="28" cy="21" r="3" fill="#b3332b"/><circle cx="36" cy="21" r="3" fill="#b3332b"/><ellipse cx="16" cy="33" rx="14" ry="7" fill="#cfe0ee" opacity=".75" transform="rotate(-24 16 33)"/><ellipse cx="48" cy="33" rx="14" ry="7" fill="#cfe0ee" opacity=".75" transform="rotate(24 48 33)"/><path d="M30 16l-3-6M34 16l3-6" stroke="#1f2630" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+  mosquito:`<svg viewBox="0 0 64 64"><ellipse cx="36" cy="38" rx="6" ry="15" fill="#4a4f57" transform="rotate(22 36 38)"/><circle cx="27" cy="22" r="6" fill="#5a5f67"/><path d="M23 19 6 7" stroke="#4a4f57" stroke-width="2" stroke-linecap="round"/><ellipse cx="20" cy="26" rx="15" ry="6" fill="#d2e2f0" opacity=".65" transform="rotate(-20 20 26)"/><ellipse cx="42" cy="24" rx="15" ry="6" fill="#d2e2f0" opacity=".65" transform="rotate(16 42 24)"/><path d="M42 46l9 11M46 43l11 7M38 48l5 11" stroke="#4a4f57" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+  wasp:`<svg viewBox="0 0 64 64"><ellipse cx="33" cy="40" rx="11" ry="16" fill="#f0bf20"/><path d="M22.5 34h21M22.5 41h21M26 48h14" stroke="#211c10" stroke-width="3.2"/><path d="M33 56l3.5 6 3.5-6Z" fill="#211c10"/><circle cx="33" cy="20" r="7" fill="#3a2c08"/><ellipse cx="20" cy="28" rx="10" ry="5" fill="#dfeeff" opacity=".75" transform="rotate(-26 20 28)"/><ellipse cx="46" cy="28" rx="10" ry="5" fill="#dfeeff" opacity=".75" transform="rotate(26 46 28)"/><path d="M30 14l-2-6M36 14l2-6" stroke="#3a2c08" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+  tick:`<svg viewBox="0 0 64 64"><ellipse cx="34" cy="38" rx="16" ry="14" fill="#6b4a2a"/><ellipse cx="34" cy="40" rx="11" ry="9" fill="#825c36"/><circle cx="34" cy="22" r="6" fill="#46301c"/><path d="M22 30l-9-5M21 37H10M22 44l-9 5M46 30l9-5M47 37h11M46 44l9 5" stroke="#6b4a2a" stroke-width="2" stroke-linecap="round"/></svg>`,
+  mold:`<svg viewBox="0 0 64 64"><path d="M10 52c0-9 7-13 7-21 0 8 6 9 6 17M24 52c0-8 6-11 6-19 0 8 6 9 6 17M38 52c0-9 7-12 7-20 0 8 6 9 6 16" stroke="#5b6b32" stroke-width="3.4" fill="none" stroke-linecap="round"/><circle cx="17" cy="22" r="5.5" fill="#7d9442"/><circle cx="30" cy="15" r="6" fill="#5b6b32"/><circle cx="45" cy="22" r="6.5" fill="#7d9442"/></svg>`,
+  virus:`<svg viewBox="0 0 64 64"><g stroke="#c2362a" stroke-width="3.2" stroke-linecap="round"><path d="M32 14V6M32 50v8M14 32H6M50 32h8M19 19l-6-6M45 45l6 6M45 19l6-6M19 45l-6 6"/></g><g fill="#c2362a"><circle cx="32" cy="6" r="3.2"/><circle cx="32" cy="58" r="3.2"/><circle cx="6" cy="32" r="3.2"/><circle cx="58" cy="32" r="3.2"/></g><circle cx="32" cy="32" r="13" fill="#d9463a"/><circle cx="27" cy="29" r="2.6" fill="#fff"/><circle cx="36" cy="35" r="2" fill="#fff"/></svg>`,
+  pigeon:`<svg viewBox="0 0 64 64"><ellipse cx="28" cy="38" rx="16" ry="11" fill="#8a95a2"/><path d="M40 30c6-3 12-2 16 2-3 4-8 5-13 4" fill="#9aa4b0"/><circle cx="46" cy="26" r="7.5" fill="#9aa4b0"/><circle cx="48" cy="24" r="1.6" fill="#1f242b"/><path d="M53 26l6-1" stroke="#e0a32e" stroke-width="3" stroke-linecap="round"/><path d="M16 40c-7 0-11 5-11 9M24 47l-2 9M32 47l1 9" stroke="#8a95a2" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
+  spray:`<svg viewBox="0 0 64 64"><rect x="22" y="24" width="20" height="32" rx="5" fill="#3f6a18"/><rect x="22" y="30" width="20" height="6" fill="#345614"/><rect x="26" y="15" width="12" height="10" rx="2" fill="#5a8a24"/><rect x="27" y="9" width="8" height="7" rx="2" fill="#2e4a11"/><g stroke="#5a8a24" stroke-width="2.4" stroke-linecap="round"><path d="M44 8l9-2M44 14h10M44 20l9 4"/></g></svg>`,
   biz:`<svg viewBox="0 0 64 64"><rect x="12" y="14" width="40" height="40" fill="#9fb088"/><g fill="#fff"><rect x="18" y="20" width="7" height="7"/><rect x="29" y="20" width="7" height="7"/><rect x="40" y="20" width="7" height="7"/><rect x="18" y="31" width="7" height="7"/><rect x="29" y="31" width="7" height="7"/><rect x="40" y="31" width="7" height="7"/></g><rect x="27" y="42" width="11" height="12" fill="#406618"/></svg>`
 };
 
@@ -718,7 +727,7 @@ function hero(){
   if(img)return `<div class="dr-hero-img" style="background-image:url('${img}')"></div><div class="dr-hero-ov"></div>${cap}`;
   return `<div class="dr-hero-svg">${I.biz}</div><div class="dr-hero-ov"></div>${cap}`;
 }
-function info(html){return `<div class="dr-info"><span class="i">i</span><p>${html}</p></div>`;}
+function info(html){return `<div class="dr-info"><button type="button" class="dr-info-h" onclick="this.parentNode.classList.toggle('open')"><span class="i">i</span><span class="dr-info-lead">Prečo sa pýtame / ako to počítame</span><span class="dr-info-ar">▾</span></button><div class="dr-info-txt"><p>${html}</p></div></div>`;}
 let TIPS=[];
 function ihint(t){const i=TIPS.push(t)-1;return `<span class="dr-ih" role="button" tabindex="0" aria-label="Vysvetlenie" onclick="DERAT.tip(event,${i})">i</span>`;}
 
@@ -819,14 +828,18 @@ function render(keep){
     <div class="dr-hero" data-img="${((k==='place')?IMG[state.c.place]:IMG[state.c.service])||''}">${hero()}</div>
     <h3 class="dr-q">${title}</h3><div class="dr-q-sub">${q[1]}</div>
     <div class="dr-stepbox" style="animation:drStepIn .42s cubic-bezier(.2,.85,.3,1)">${stepInner()}</div>
+    <div class="dr-more" aria-hidden="true"><span>ďalej nižšie ▾</span></div>
   </div>
   <div class="dr-actions">
     ${state.step>=1&&!last?`<div class="dr-live-price"><small>od</small><b>${eur(r.total)}</b></div>`:''}
     <button class="dr-next" onclick="DERAT.next()">${last?'↺ Začať odznova':'Pokračovať ›'}</button>
   </div>`;
-  const nb=calc.querySelector('.dr-body');if(nb)nb.scrollTop=sc;
+  const nb=calc.querySelector('.dr-body');if(nb){nb.scrollTop=sc;nb.onscroll=()=>scrollHint(nb);requestAnimationFrame(()=>scrollHint(nb));}
   if(last)countUp();
 }
+function scrollHint(b){const rest=b.scrollHeight-b.clientHeight-b.scrollTop;
+  b.classList.toggle('scrollable',b.scrollHeight>b.clientHeight+8);
+  b.classList.toggle('atbottom',rest<26);}
 function countUp(){const el=$('dr-price');if(!el)return;const t=+el.dataset.t,t0=performance.now(),dur=1100;
   (function tick(now){const p=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-p,4),v=Math.round(t*e);el.textContent=v.toLocaleString('sk-SK')+' €';
     if(p<1)requestAnimationFrame(tick);else{el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');}})(t0);}
