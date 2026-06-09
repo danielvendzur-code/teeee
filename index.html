@@ -19,10 +19,6 @@
   --ink:#1e231d;--muted:#6b7363;--line:#e3e8db;--paper:#fff;--bg:#f5f8f0;--wa:#25d366;
   --sh:0 18px 50px rgba(31,40,18,.18);--r:18px;
   --font:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  
-  /* Akcentové farby pridané na oživenie */
-  --accent:#eaa12e;--accent-dk:#bd7d12;--accent-50:#fdf3e1;
-  --lime:#a6f06f;--lime-2:#d6ffae;
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:var(--font);color:var(--ink);background:#fff}
@@ -96,54 +92,24 @@ img{max-width:100%}
 #derat-chat{position:fixed;right:20px;bottom:96px;z-index:99999;width:464px;height:min(840px,calc(100vh - 104px));max-height:840px;border-radius:24px;background:#fff;border:1px solid var(--line);box-shadow:var(--sh);display:flex;flex-direction:column;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(20px) scale(.96);transform-origin:bottom right;transition:.3s cubic-bezier(.2,.8,.2,1)}
 #derat-chat.show{opacity:1;pointer-events:auto;transform:none}
 
-/* hlavička – zarovnaná s pridaným efektom lúča */
-.dr-head{padding:13px 14px;position:relative;overflow:hidden;background:linear-gradient(120deg,#23400c,#3f6a18 52%,#62a028);color:#fff;display:flex;align-items:center;gap:11px}
-.dr-head::before{content:"";position:absolute;right:-34px;top:-46px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(166,240,111,.38),transparent 70%);pointer-events:none;z-index:0}
-.dr-head::after{content:"";position:absolute;left:32%;bottom:-70px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%);pointer-events:none;z-index:0}
-
-/* TOTO JE OPRAVENÝ EFEKT BEŽIACEHO LÚČA (BEZ LAGOV, CEZ TRANSFORM) */
-.dr-head-beam {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 3px;
-  background-color: var(--accent);
-  z-index: 2;
-  overflow: hidden;
-}
-.dr-head-beam::after {
-  content: "";
-  position: absolute;
-  left: -50%;
-  top: 0; bottom: 0;
-  width: 50%;
-  background-image: linear-gradient(90deg, transparent 0%, #ffd98a 50%, transparent 100%);
-  animation: drAccentBeam 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
-  will-change: transform;
-}
-@keyframes drAccentBeam {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(300%); }
-}
-
-.dr-head-logo{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#6fa530,#2e4a11);display:flex;align-items:center;justify-content:center;flex:0 0 auto;position:relative;z-index:1;box-shadow:0 5px 14px rgba(0,0,0,.25),inset 0 0 0 2px rgba(255,255,255,.3),0 0 0 4px rgba(166,240,111,.18)}
+/* hlavička – zarovnaná */
+.dr-head{padding:13px 14px;background:linear-gradient(135deg,#2e4a11,#406618 58%,#5a8a24);color:#fff;display:flex;align-items:center;gap:11px}
+.dr-head-logo{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#6fa530,#2e4a11);display:flex;align-items:center;justify-content:center;flex:0 0 auto;box-shadow:0 5px 14px rgba(0,0,0,.22),inset 0 0 0 2px rgba(255,255,255,.25)}
 .dr-head-logo .dr-mouse{width:28px}
-.dr-head-t{min-width:0;flex:1;display:flex;flex-direction:column;justify-content:center;gap:3px;position:relative;z-index:1}
+.dr-head-t{min-width:0;flex:1;display:flex;flex-direction:column;justify-content:center;gap:3px}
 .dr-head-t b{font-size:15px;font-weight:800;line-height:1.1}
 .dr-head-t span{font-size:11px;font-weight:600;color:rgba(255,255,255,.86);display:flex;gap:6px;align-items:center;line-height:1}
 .dr-live{width:7px;height:7px;border-radius:50%;background:#a6f06f;box-shadow:0 0 6px rgba(166,240,111,.8);flex:0 0 auto}
-.dr-head-act{display:flex;gap:7px;position:relative;z-index:1}
+.dr-head-act{display:flex;gap:7px}
 .dr-hbtn{width:36px;height:36px;border:0;background:rgba(255,255,255,.92);color:var(--g-dk);border-radius:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
 .dr-hbtn:hover{background:#fff}
 .dr-hbtn.ghost{background:rgba(255,255,255,.16);color:#fff}
 .dr-hbtn.ghost:hover,.dr-hbtn.ghost:active{background:var(--red);color:#fff}
 .dr-hbtn svg{width:19px;height:19px;fill:currentColor}
-.dr-reset svg{transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
-.dr-reset:hover svg{transform:rotate(-180deg)}
-#derat-chat.calc .dr-reset{display:none}
 
 /* CTA */
 .dr-top{padding:12px 13px 9px;background:#fff;border-bottom:1px solid var(--line)}
-.dr-cta{width:100%;border:1px solid rgba(64,102,24,.26);border-radius:15px;background:linear-gradient(135deg,#f3f8ea,#e6efd4);box-shadow:0 8px 20px rgba(64,102,24,.10);padding:12px;display:grid;grid-template-columns:46px 1fr auto;gap:12px;align-items:center;text-align:left;cursor:pointer;transition:.18s;position:relative}
+.dr-cta{width:100%;border:1px solid rgba(64,102,24,.26);border-radius:15px;background:linear-gradient(135deg,#f3f8ea,#e6efd4);box-shadow:0 8px 20px rgba(64,102,24,.10);padding:12px;display:grid;grid-template-columns:46px 1fr auto;gap:12px;align-items:center;text-align:left;cursor:pointer;transition:.18s}
 .dr-cta:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(64,102,24,.18)}
 .dr-cta-ic{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,#5a8a24,#2e4a11);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px rgba(46,74,17,.28);transition:.2s}
 .dr-cta:hover .dr-cta-ic,.dr-cta:active .dr-cta-ic{background:linear-gradient(135deg,#e0573f,#9e2a1a);box-shadow:0 8px 18px rgba(158,42,26,.36)}
@@ -154,16 +120,16 @@ img{max-width:100%}
 .dr-cta:hover .ar,.dr-cta:active .ar{transform:translateX(4px);color:var(--red)}
 
 /* správy */
-.dr-msgs{flex:1;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:14px 13px 0;display:flex;flex-direction:column;gap:11px;background:radial-gradient(circle at 100% 0%,rgba(166,240,111,.12),transparent 40%),radial-gradient(circle at 0% 100%,rgba(64,102,24,.06),transparent 42%),linear-gradient(180deg,#ffffff,#f3f8ea)}
+.dr-msgs{flex:1;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:14px 13px 0;display:flex;flex-direction:column;gap:9px;background:linear-gradient(180deg,#fff,#f5f8f0)}
 .dr-row{display:flex;gap:8px;align-items:flex-end;animation:drIn .3s ease}
 .dr-row.me{justify-content:flex-end}
 .dr-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#6fa530,#2e4a11);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
 .dr-av .dr-mouse{width:21px}
 .dr-row.me .dr-av{display:none}
-.dr-b{max-width:80%;padding:10px 13px;border-radius:16px;font:500 13px/1.5 var(--font);box-shadow:0 8px 20px rgba(31,40,18,.07)}
-.dr-b.bot{background:#fff;border:1px solid var(--line);border-bottom-left-radius:6px;border-left:3px solid var(--g-100)}
+.dr-b{max-width:80%;padding:10px 13px;border-radius:16px;font:500 13px/1.5 var(--font);box-shadow:0 6px 16px rgba(31,40,18,.06)}
+.dr-b.bot{background:#fff;border:1px solid var(--line);border-bottom-left-radius:6px}
 .dr-b.bot b{color:var(--g)}
-.dr-b.me{background:linear-gradient(135deg,#5a8a24,#2e4a11);color:#fff;border-bottom-right-radius:6px;box-shadow:0 4px 12px rgba(46,74,17,.22)}
+.dr-b.me{background:linear-gradient(135deg,#5a8a24,#2e4a11);color:#fff;border-bottom-right-radius:6px}
 .dr-typing{display:flex;gap:4px;padding:14px}
 .dr-typing span{width:7px;height:7px;border-radius:50%;background:var(--g-lt);animation:drDot 1.2s infinite}
 .dr-typing span:nth-child(2){animation-delay:.18s}.dr-typing span:nth-child(3){animation-delay:.36s}
@@ -172,7 +138,7 @@ img{max-width:100%}
 @keyframes drCur{50%{opacity:0}}
 
 .dr-chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 13px 10px;background:#f5f8f0}
-.dr-chip{position:relative;border:1.4px solid rgba(64,102,24,.28);border-radius:999px;color:var(--g-dk);padding:8px 13px;font:700 11.5px var(--font);cursor:pointer;background-color:#fff;background-image:radial-gradient(circle at center,var(--g) 65%,var(--g-lt));background-repeat:no-repeat;background-position:center;background-size:0% 0%;transition:background-size .42s cubic-bezier(.22,.61,.36,1),color .3s ease,border-color .25s,transform .25s,opacity .3s}
+.dr-chip{border:1.4px solid rgba(64,102,24,.28);border-radius:999px;color:var(--g-dk);padding:8px 13px;font:700 11.5px var(--font);cursor:pointer;background-color:#fff;background-image:radial-gradient(circle at center,var(--g) 65%,var(--g-lt));background-repeat:no-repeat;background-position:center;background-size:0% 0%;transition:background-size 1.2s cubic-bezier(.22,1,.36,1),color .3s ease,border-color .25s,transform .25s,opacity .3s}
 .dr-chip:hover{background-size:260% 260%;color:#fff;border-color:var(--g);transform:translateY(-2px);box-shadow:0 7px 16px rgba(46,74,17,.22)}
 .dr-chip:active{transform:translateY(0) scale(.96)}
 .dr-chips.gone{display:none}
@@ -219,12 +185,11 @@ img{max-width:100%}
 .dr-x{width:32px;height:32px;border-radius:11px;border:1px solid var(--line);background:#fff;color:#7c857a;font-size:20px;cursor:pointer}
 .dr-x:hover{background:#f3f5ef}
 .dr-prog{display:flex;align-items:center;gap:9px;padding:0 13px 11px}
-.dr-back{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--g-dk);font-weight:900;cursor:pointer;flex:0 0 auto;transition:.15s}
-.dr-back:hover{border-color:var(--g);color:var(--g);background:var(--g-50)}
-.dr-back:disabled{opacity:.32;pointer-events:none}
-.dr-prog-track{flex:1;height:7px;background:#e0e9d3;border-radius:999px;overflow:hidden}
-.dr-prog-fill{height:100%;background:linear-gradient(90deg,#406618,#5a8a24,#a6f06f);transition:width .4s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 8px rgba(166,240,111,.6)}
-.dr-prog-n{font:900 11px var(--font);color:var(--accent-dk);white-space:nowrap}
+.dr-back{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--g-dk);font-weight:900;cursor:pointer;flex:0 0 auto}
+.dr-back:disabled{opacity:.32}
+.dr-prog-track{flex:1;height:5px;background:#e0e9d3;border-radius:999px;position:relative;overflow:visible}
+.dr-prog-fill{height:100%;background:linear-gradient(90deg,#406618,#5a8a24,#a6f06f);transition:width .4s cubic-bezier(.2,.8,.2,1)}
+.dr-prog-n{font:900 11px var(--font);color:var(--g);white-space:nowrap}
 
 .dr-body{flex:1;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:0 13px 8px}
 .dr-more{position:sticky;bottom:0;height:40px;margin:-40px 0 0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:7px;pointer-events:none;opacity:0;transition:opacity .25s;z-index:6;background:linear-gradient(transparent,rgba(246,249,241,.92) 78%)}
@@ -233,7 +198,7 @@ img{max-width:100%}
 @keyframes drMoreB{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
 
 /* hero foto – čistá, ľahký overlay len dole pod popisom */
-.dr-hero{position:relative;border-radius:var(--r);overflow:hidden;background:#dfe7d4;height:116px;margin-bottom:9px;border:1px solid var(--line)}
+.dr-hero{position:relative;border-radius:var(--r);overflow:hidden;background:#dfe7d4;height:132px;margin-bottom:11px;border:1px solid var(--line)}
 .dr-hero-img{position:absolute;inset:0;background-size:cover;background-position:center;animation:drKen 18s ease-in-out infinite alternate}
 .dr-hero-ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(20,28,16,.62))}
 .dr-hero-svg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 70% 25%,#fff,transparent 50%),linear-gradient(180deg,#e3ecd6,#fff)}
@@ -242,8 +207,8 @@ img{max-width:100%}
 .dr-hero-cap .d{width:7px;height:7px;border-radius:50%;background:#a6f06f;flex:0 0 auto}
 .dr-hero-cap .bdg{margin-left:auto;background:rgba(255,255,255,.94);color:var(--g-dk);font:800 10px var(--font);padding:4px 9px;border-radius:999px;text-shadow:none}
 
-.dr-q{font-size:15.5px;font-weight:900;color:var(--g-dk);margin:0 0 2px;letter-spacing:-.2px;animation:drQIn .42s ease both}
-.dr-q-sub{font-size:11.5px;font-weight:500;color:var(--muted);line-height:1.4;margin-bottom:9px;animation:drQIn .42s ease both;animation-delay:.04s}
+.dr-q{font-size:16.5px;font-weight:900;color:var(--g-dk);margin:0 0 3px;letter-spacing:-.2px}
+.dr-q-sub{font-size:11.5px;font-weight:500;color:var(--muted);line-height:1.4;margin-bottom:12px}
 
 /* info box */
 .dr-info{background:var(--g-50);border:1px solid rgba(64,102,24,.18);border-radius:13px;margin-bottom:11px;overflow:hidden;animation:drStep .3s ease}
@@ -258,26 +223,24 @@ img{max-width:100%}
 .dr-info-txt b{color:var(--g-dk)}
 
 /* karty s fotkou (služba, priestor) */
-.dr-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dr-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .dr-grid.tri{grid-template-columns:1fr 1fr 1fr}
 /* zoznam služieb na celú šírku */
-.dr-rows{display:flex;flex-direction:column;gap:8px}
-
-/* Výberové karty a animácie */
-.dr-rowcard{position:relative;display:flex;align-items:stretch;min-height:84px;border:1.8px solid var(--line);background:#fff;border-radius:15px;overflow:hidden;cursor:pointer;text-align:left;transition:.16s cubic-bezier(.2,.8,.2,1);animation:drStep .35s ease both}
+.dr-rows{display:flex;flex-direction:column;gap:9px}
+/* service čip = foto vľavo (plná výška), text + cena vpravo */
+.dr-rowcard{position:relative;display:flex;align-items:stretch;min-height:84px;border:1.8px solid var(--line);background:#fff;border-radius:15px;overflow:hidden;cursor:pointer;text-align:left;transition:.16s;animation:drStep .35s ease both}
 .dr-rowcard-img{flex:0 0 102px;align-self:stretch;background-size:cover;background-position:center;background-color:#cdd8bf}
 .dr-rowcard:hover{border-color:var(--g-lt);transform:translateY(-2px);box-shadow:0 10px 20px rgba(46,74,17,.14)}
-.dr-rowcard.sel{border-color:var(--g);box-shadow:0 0 0 3px rgba(64,102,24,.18),0 10px 22px rgba(46,74,17,.16);animation:drSelPop .34s cubic-bezier(.2,1.6,.35,1)}
+.dr-rowcard.sel{border-color:var(--g);box-shadow:0 0 0 3px rgba(64,102,24,.18)}
 .dr-rowcard-bd{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:11px 6px 11px 14px}
 .dr-rowcard-bd b{font-size:14.5px;font-weight:800;color:var(--ink);display:block;line-height:1.15}
 .dr-rowcard-bd span{font-size:11px;font-weight:500;color:var(--muted);line-height:1.3;display:block;margin-top:2px}
-.dr-rowcard-pr{flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;padding:0 14px;font:900 14px var(--font);color:var(--accent-dk);white-space:nowrap}
-.dr-rowcard-pr small{font:600 9px var(--font);color:var(--accent-dk);letter-spacing:.3px;margin-top:1px}
+.dr-rowcard-pr{flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;padding:0 14px;font:900 14px var(--font);color:var(--g);white-space:nowrap}
+.dr-rowcard-pr small{font:600 9px var(--font);color:var(--muted);letter-spacing:.3px;margin-top:1px}
 .dr-rowcard.sel:after{content:"✓";position:absolute;left:8px;top:8px;z-index:3;width:21px;height:21px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;font:900 12px var(--font);animation:drPop .3s ease;box-shadow:0 2px 6px rgba(0,0,0,.4)}
-
-.dr-pcard{position:relative;border:1.8px solid var(--line);background:#fff;border-radius:15px;overflow:hidden;cursor:pointer;text-align:left;transition:.16s cubic-bezier(.2,.8,.2,1);animation:drStep .35s ease both;display:flex;flex-direction:column;height:122px}
-.dr-pcard:hover{border-color:var(--g-lt);transform:translateY(-2px);box-shadow:0 9px 18px rgba(46,74,17,.14)}
-.dr-pcard.sel{border-color:var(--g);box-shadow:0 0 0 3px rgba(64,102,24,.18),0 10px 22px rgba(46,74,17,.16);animation:drSelPop .34s cubic-bezier(.2,1.6,.35,1)}
+.dr-pcard{position:relative;border:1.8px solid var(--line);background:#fff;border-radius:15px;overflow:hidden;cursor:pointer;text-align:left;transition:.16s;animation:drStep .35s ease both;display:flex;flex-direction:column;height:122px}
+.dr-pcard:hover{border-color:var(--g-lt);transform:translateY(-2px);box-shadow:0 10px 20px rgba(46,74,17,.12)}
+.dr-pcard.sel{border-color:var(--g);box-shadow:0 0 0 3px rgba(64,102,24,.16)}
 .dr-pcard-img{height:78px;flex:0 0 78px;background-size:cover;background-position:center;background-color:#dfe7d4}
 .dr-pcard-svg{height:78px;flex:0 0 78px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#eef3e6,#dde7d0)}
 .dr-pcard-svg svg{width:42px;height:42px}
@@ -288,9 +251,9 @@ img{max-width:100%}
 .dr-pcard.sel:after{content:"✓";position:absolute;right:7px;top:7px;width:23px;height:23px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;font:900 13px var(--font);animation:drPop .3s ease;box-shadow:0 2px 6px rgba(0,0,0,.25)}
 
 /* malé karty (škodca) – jednotná veľkosť ikon */
-.dr-scard{position:relative;border:1.7px solid var(--line);background:#fff;border-radius:13px;cursor:pointer;padding:11px 8px;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;transition:.16s cubic-bezier(.2,.8,.2,1);animation:drStep .3s ease both}
-.dr-scard:hover{border-color:var(--g-lt);transform:translateY(-2px);box-shadow:0 9px 18px rgba(46,74,17,.14)}
-.dr-scard.sel{border-color:var(--g);background:var(--g-50);animation:drSelPop .34s cubic-bezier(.2,1.6,.35,1)}
+.dr-scard{position:relative;border:1.7px solid var(--line);background:#fff;border-radius:13px;cursor:pointer;padding:11px 8px;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;transition:.15s;animation:drStep .3s ease both}
+.dr-scard:hover{border-color:var(--g-lt);transform:translateY(-2px)}
+.dr-scard.sel{border-color:var(--g);background:var(--g-50)}
 .dr-scard-ic{width:40px;height:40px;display:flex;align-items:center;justify-content:center}
 .dr-scard-ic svg{width:40px;height:40px;display:block}
 .dr-scard b{font-size:11.5px;font-weight:800;color:var(--ink);line-height:1.15}
@@ -298,9 +261,9 @@ img{max-width:100%}
 
 /* radio / checkbox */
 .dr-list{display:flex;flex-direction:column;gap:8px}
-.dr-opt{border:1.7px solid var(--line);background:#fff;border-radius:13px;cursor:pointer;display:flex;gap:10px;align-items:center;padding:11px;transition:.16s cubic-bezier(.2,.8,.2,1);animation:drStep .3s ease both}
-.dr-opt:hover{border-color:var(--g-lt);transform:translateY(-2px);box-shadow:0 9px 18px rgba(46,74,17,.14)}
-.dr-opt.sel{border-color:var(--g);background:var(--g-50);animation:drSelPop .34s cubic-bezier(.2,1.6,.35,1)}
+.dr-opt{border:1.7px solid var(--line);background:#fff;border-radius:13px;cursor:pointer;display:flex;gap:10px;align-items:center;padding:11px;transition:.15s;animation:drStep .3s ease both}
+.dr-opt:hover{border-color:var(--g-lt)}
+.dr-opt.sel{border-color:var(--g);background:var(--g-50)}
 .dr-rb{width:21px;height:21px;border-radius:50%;border:2px solid #b9c4a8;flex:0 0 21px;display:flex;align-items:center;justify-content:center}
 .dr-rb.sq{border-radius:6px}
 .dr-opt.sel .dr-rb{border-color:var(--g)}
@@ -309,7 +272,7 @@ img{max-width:100%}
 .dr-opt-m{flex:1;min-width:0}
 .dr-opt-m b{font-size:13px;font-weight:800;color:var(--ink);display:block}
 .dr-opt-m span{font-size:10.6px;font-weight:500;color:var(--muted);line-height:1.3;display:block}
-.dr-opt-p{font:900 11.5px var(--font);color:var(--accent-dk);white-space:nowrap}
+.dr-opt-p{font:900 11.5px var(--font);color:var(--g);white-space:nowrap}
 
 /* plocha */
 .dr-area{border:1.7px solid var(--line);background:#fff;border-radius:15px;padding:15px 13px}
@@ -324,8 +287,20 @@ img{max-width:100%}
 .dr-quick button{flex:1;min-width:56px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 4px;font:800 11px var(--font);color:var(--g-dk);cursor:pointer;transition:.15s}
 .dr-quick button:hover,.dr-quick button.on{background:var(--g-50);border-color:var(--g-lt)}
 
+/* Photo Zoom */
+.dr-rowcard-img,.dr-pcard-img{transition:transform .4s cubic-bezier(.2,1,.2,1)}
+.dr-rowcard:hover .dr-rowcard-img,.dr-pcard:hover .dr-pcard-img{transform:scale(1.08)}
+
+/* Size Icon pre sekciu INÉ */
+.dr-size-icon{width:56px;height:56px;margin:0 auto 8px;background:#fff;border:1.5px solid var(--line);border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px rgba(46,74,17,.08);transition:transform .3s cubic-bezier(.2,1.5,.4,1)}
+.dr-size-icon svg{width:40px;height:40px;display:block}
+
+/* Spinner pre odoslanie */
+.dr-spinner{width:18px;height:18px;display:inline-block;animation:drSpin 1s linear infinite;margin-right:6px;vertical-align:-4px}
+@keyframes drSpin{100%{transform:rotate(360deg)}}
+
 /* výsledok */
-.dr-result{position:relative;overflow:hidden;border:1px solid rgba(64,102,24,.24);border-radius:var(--r);background:linear-gradient(150deg,#f1f8ea,#fff);padding:13px;box-shadow:0 10px 26px rgba(46,74,17,.08);margin-bottom:9px}
+.dr-result{position:relative;overflow:hidden;border:1px solid rgba(64,102,24,.24);border-radius:var(--r);background:linear-gradient(150deg,#f1f8ea,#fff);padding:15px;box-shadow:0 10px 26px rgba(46,74,17,.08);margin-bottom:11px}
 .dr-result .lbl{font:900 9.5px var(--font);text-transform:uppercase;letter-spacing:.7px;color:var(--g)}
 .dr-result .price{font-size:34px;font-weight:900;color:var(--g-dk);line-height:1;margin-top:5px}
 .dr-result .price #dr-price{display:inline-block}
@@ -334,23 +309,23 @@ img{max-width:100%}
 .dr-confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:3}
 .dr-confetti i{position:absolute;top:-12px;width:8px;height:12px;border-radius:2px;opacity:0;animation:drConf 1.5s ease-in forwards}
 @keyframes drConf{0%{opacity:0;top:-12px}10%{opacity:1}100%{opacity:0;top:108%}}
-.dr-result .price .from{font-size:15px;color:var(--accent-dk);font-weight:700;margin-right:4px}
+.dr-result .price .from{font-size:15px;color:var(--muted);font-weight:700;margin-right:4px}
 .dr-result .rng{font:700 11.5px var(--font);color:var(--muted);margin-top:6px}
-.dr-bd{border-top:1px dashed var(--line);margin-top:10px;padding-top:9px;display:flex;flex-direction:column;gap:4px}
+.dr-bd{border-top:1px dashed var(--line);margin-top:12px;padding-top:10px;display:flex;flex-direction:column;gap:4px}
 .dr-bd-r{display:flex;justify-content:space-between;gap:8px;font:600 11.3px var(--font);color:var(--muted)}
 .dr-bd-r b{color:var(--ink);font-weight:700}
 .dr-bd-r.tot{border-top:1px solid var(--line);margin-top:6px;padding-top:8px;font-size:12.5px}
 .dr-bd-r.tot b{color:var(--g-dk);font-weight:900}
-.dr-disc{font:500 10px/1.4 var(--font);color:var(--muted);margin-top:8px}
+.dr-disc{font:500 10px/1.4 var(--font);color:var(--muted);margin-top:10px}
 
 /* lead */
-.dr-lead{border:1px solid var(--line);border-radius:var(--r);background:#fff;padding:13px;margin-bottom:6px}
-.dr-lead-h{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.dr-lead{border:1px solid var(--line);border-radius:var(--r);background:#fff;padding:15px;margin-bottom:6px}
+.dr-lead-h{display:flex;gap:10px;align-items:center;margin-bottom:12px}
 .dr-lead-h .ic{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#5a8a24,#2e4a11);display:flex;align-items:center;justify-content:center;color:#fff;flex:0 0 38px}
 .dr-lead-h .ic svg{width:21px;fill:#fff}
 .dr-lead-h b{font-size:13.5px;display:block}
 .dr-lead-h small{font:500 11px var(--font);color:var(--muted);line-height:1.3}
-.dr-lf{display:grid;gap:7px}
+.dr-lf{display:grid;gap:8px}
 .dr-lf-r{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .dr-lf input,.dr-lf textarea,.dr-sel{width:100%;border:1.4px solid var(--line);background:#fbfdf8;border-radius:12px;padding:11px;font:600 12.5px var(--font);color:var(--ink);outline:none;transition:.15s}
 .dr-sel{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236b7363'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;background-size:16px;padding-right:28px;color:var(--ink)}
@@ -375,12 +350,55 @@ img{max-width:100%}
 .dr-actions{display:flex;gap:10px;padding:10px 13px 12px;border-top:1px solid var(--line);background:#fff;align-items:center}
 .dr-live-price{flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;padding:0 2px}
 .dr-live-price small{font:800 8.5px var(--font);text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
-.dr-live-price b{font:900 17px var(--font);color:var(--accent-dk);line-height:1}
-.dr-next{flex:1;border:0;border-radius:13px;background:linear-gradient(135deg,#406618,#2e4a11);color:#fff;font:900 13px var(--font);padding:13px;cursor:pointer;transition:.15s;box-shadow:0 8px 18px rgba(46,74,17,.26)}
-.dr-next:hover{transform:translateY(-1.5px);box-shadow:0 13px 26px rgba(46,74,17,.32);filter:brightness(1.06)}
-.dr-next:active{transform:translateY(0)}
+.dr-live-price b{font:900 17px var(--font);color:var(--g-dk);line-height:1}
+.dr-next{flex:1;border:0;border-radius:13px;background:linear-gradient(135deg,#406618,#2e4a11);color:#fff;font:900 13px var(--font);padding:13px;cursor:pointer;transition:.15s}
+.dr-next:hover{filter:brightness(1.08)}
 
-/* Info „i" bublina (vysvetlivky po kliknutí) */
+@media(max-width:520px){
+  #derat-chat{inset:0!important;width:100%!important;height:100dvh!important;max-height:100dvh!important;border-radius:0;transform:translateY(100%)}
+  #derat-chat.show{transform:none}
+  #derat-bubble{right:16px;bottom:16px}
+  .dr-head{padding-top:calc(13px + env(safe-area-inset-top))}
+  .dr-cbar{padding-bottom:calc(13px + env(safe-area-inset-bottom))}
+  .dr-lf-r{grid-template-columns:1fr}
+}
+
+/* ======================================================
+   VYLEPŠENIA – oživenie vzhľadu, beam okraj, animácie
+   ====================================================== */
+:root{--lime:#a6f06f;--lime-2:#d6ffae}
+
+/* živšia spúšťacia ikona + jemný „twinkle" */
+#derat-bubble{background:radial-gradient(circle at 30% 22%,#86c23f,#4a7c1c 52%,#2c4810);box-shadow:0 14px 32px rgba(46,74,17,.45)}
+/* (blikajúca bodka „nová správa" odstránená) */
+
+/* hlavička – dekoratívne svetlá + hĺbka */
+.dr-head{position:relative;overflow:hidden;background:linear-gradient(120deg,#23400c,#3f6a18 52%,#62a028)}
+.dr-head::before{content:"";position:absolute;right:-34px;top:-46px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(166,240,111,.38),transparent 70%);pointer-events:none}
+.dr-head::after{content:"";position:absolute;left:32%;bottom:-70px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%);pointer-events:none}
+.dr-head-t,.dr-head-logo,.dr-head-act{position:relative;z-index:1}
+.dr-head-logo{box-shadow:0 5px 14px rgba(0,0,0,.25),inset 0 0 0 2px rgba(255,255,255,.3),0 0 0 4px rgba(166,240,111,.18)}
+
+/* správy – jemný farebný nádych miesto plochej zelenej */
+.dr-msgs{background:radial-gradient(circle at 100% 0%,rgba(166,240,111,.12),transparent 40%),radial-gradient(circle at 0% 100%,rgba(64,102,24,.06),transparent 42%),linear-gradient(180deg,#ffffff,#f3f8ea)}
+.dr-b.bot{box-shadow:0 3px 10px rgba(46,74,17,.07)}
+.dr-b.me{box-shadow:0 4px 12px rgba(46,74,17,.22)}
+
+/* (krúžiaci „beam" efekt na čipoch a v kalkulačke odstránený) */
+.dr-chip,.dr-cta{position:relative}
+
+/* ===== Krajšia animácia výberu ===== */
+.dr-rowcard.sel,.dr-pcard.sel,.dr-scard.sel,.dr-opt.sel{animation:drSelPop .34s cubic-bezier(.2,1.6,.35,1)}
+@keyframes drSelPop{0%{transform:scale(1)}45%{transform:scale(1.035)}100%{transform:scale(1)}}
+.dr-rowcard.sel,.dr-pcard.sel{box-shadow:0 0 0 3px rgba(64,102,24,.18),0 10px 22px rgba(46,74,17,.16)}
+
+/* ===== Plynulejší prechod krokov ===== */
+@keyframes drStepIn{from{opacity:0}to{opacity:1}}
+@keyframes drQIn{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
+.dr-q,.dr-q-sub{animation:drQIn .42s ease both}
+.dr-q-sub{animation-delay:.04s}
+
+/* ===== Info „i" bublina (vysvetlivky po kliknutí) ===== */
 .dr-ih{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;border:1.3px solid var(--g-lt);background:var(--g-50);color:var(--g);font:800 9.5px Georgia,serif;font-style:italic;cursor:pointer;vertical-align:-2px;margin-left:4px;flex:0 0 auto;transition:.15s;-webkit-tap-highlight-color:transparent}
 .dr-ih:hover,.dr-ih.on{background:var(--g);color:#fff;border-color:var(--g)}
 .dr-tipbox{display:none;position:fixed;left:0;top:0;width:240px;max-width:82vw;background:#1e231d;color:#fff;font:600 11.5px/1.55 var(--font);font-style:normal;padding:11px 13px;border-radius:12px;box-shadow:0 16px 40px rgba(0,0,0,.4);z-index:2147483600;text-align:left;pointer-events:none}
@@ -412,7 +430,7 @@ img{max-width:100%}
 .dr-ine-txt{width:100%;border:1.4px solid var(--line);border-radius:11px;padding:11px 12px;font:600 13px var(--font);color:var(--ink);outline:none;transition:.15s}
 .dr-ine-txt:focus{border-color:var(--g);box-shadow:0 0 0 3px var(--g-100)}
 .dr-size{margin-top:12px;text-align:center}
-.dr-size-emoji{line-height:1;transition:font-size .22s cubic-bezier(.2,1.5,.4,1);filter:drop-shadow(0 4px 7px rgba(46,74,17,.22))}
+
 .dr-size-lbl{margin-top:8px;font:600 11.5px var(--font);color:var(--muted)}
 .dr-size-lbl b{display:block;font-size:13.5px;color:var(--g-dk);font-weight:900}
 .dr-size .dr-slider{margin:13px 0 4px}
@@ -435,17 +453,164 @@ img{max-width:100%}
 .dr-photo-prev span{flex:1;font:600 11.5px var(--font);color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dr-photo-prev button{flex:0 0 auto;width:24px;height:24px;border:0;border-radius:50%;background:#f0eeea;color:#7c857a;font-size:15px;cursor:pointer}
 
+/* ============================================================
+   VIZUÁLNE OŽIVENIE + KOMPAKTNEJŠIE ROZLOŽENIE (menej scrollu)
+   ============================================================ */
+:root{--accent:#eaa12e;--accent-dk:#bd7d12;--accent-50:#fdf3e1}
+
+/* hlavička: teplý akcentový prúžok dole */
+.dr-head{position:relative;background:linear-gradient(122deg,#22400b,#3d6817 48%,#62a128)}
+.dr-head::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  z-index: 2;
+  background-color: var(--accent);
+  background-image: linear-gradient(90deg, transparent 0%, #ffd98a 50%, transparent 100%);
+  background-size: 50% 100%;
+  background-repeat: no-repeat;
+  animation: drAccent 2.5s ease-in-out infinite alternate;
+}
+@keyframes drAccent {
+  0% { background-position: 0% 0; }
+  100% { background-position: 100% 0; }
+}
+
+.dr-reset svg{transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
+.dr-reset:hover svg{transform:rotate(-180deg)}
+#derat-chat.calc .dr-reset{display:none}
+
+/* progres + číslo kroku */
+.dr-prog-fill{box-shadow:0 0 8px rgba(166,240,111,.6)}
+.dr-prog-n{color:var(--accent-dk);font-weight:900}
+/* správy: jemný ľavý akcent na bot bubline, krajší tieň */
+.dr-b{box-shadow:0 8px 20px rgba(31,40,18,.07)}
+.dr-b.bot{border-left:3px solid var(--g-100)}
+.dr-msgs{gap:11px}
+
+/* akcentová farba na cenách */
+.dr-rowcard-pr,.dr-rowcard-pr small{color:var(--accent-dk)}
+.dr-result .price .from{color:var(--accent-dk)}
+.dr-live-price b{color:var(--accent-dk)}
+.dr-opt-p{color:var(--accent-dk)}
+
+/* hover oživenie výberových kariet */
+.dr-scard,.dr-opt,.dr-pcard{transition:.16s cubic-bezier(.2,.8,.2,1)}
+.dr-opt:hover,.dr-scard:hover,.dr-pcard:hover{border-color:var(--g-lt);box-shadow:0 9px 18px rgba(46,74,17,.14);transform:translateY(-2px)}
+
+/* tlačidlá */
+.dr-next{box-shadow:0 8px 18px rgba(46,74,17,.26)}
+.dr-next:hover{transform:translateY(-1.5px);box-shadow:0 13px 26px rgba(46,74,17,.32);filter:brightness(1.06)}
+.dr-next:active{transform:translateY(0)}
+.dr-back:hover{border-color:var(--g);color:var(--g);background:var(--g-50)}
+
 /* „Čo je v cene" pilly vo výsledku */
 .dr-incl{display:flex;flex-wrap:wrap;gap:5px;margin-top:11px}
 .dr-incl span{font:700 9.5px var(--font);color:var(--g);background:var(--g-50);border:1px solid var(--g-100);padding:4px 8px;border-radius:999px}
 
-@media(max-width:520px){
-  #derat-chat{inset:0!important;width:100%!important;height:100dvh!important;max-height:100dvh!important;border-radius:0;transform:translateY(100%)}
-  #derat-chat.show{transform:none}
-  #derat-bubble{right:16px;bottom:16px}
-  .dr-head{padding-top:calc(13px + env(safe-area-inset-top))}
-  .dr-cbar{padding-bottom:calc(13px + env(safe-area-inset-bottom))}
-  .dr-lf-r{grid-template-columns:1fr}
+/* --- kompaktnejšie rozostupy (menej scrollovania) --- */
+.dr-hero{height:116px;margin-bottom:9px}
+.dr-q{font-size:15.5px;margin-bottom:2px}
+.dr-q-sub{margin-bottom:9px}
+.dr-grid,.dr-rows,.dr-list{gap:8px}
+.dr-result{padding:13px;margin-bottom:9px}
+.dr-bd{margin-top:10px;padding-top:9px}
+.dr-lead{padding:13px}
+.dr-lead-h{margin-bottom:10px}
+.dr-lf{gap:7px}
+.dr-disc{margin-top:8px}
+
+/* ============================================================
+   PREMIUM PASS — živší úvod, „thinking" prúžok, jemné animácie
+   ============================================================ */
+
+/* ---- „thinking" prúžok pod hlavičkou: pokoj v idle, aktívny sweep pri písaní ---- */
+/* žiadna statická linka — keď asistent nepíše, header je čistý */
+.dr-head::after{display:none}
+/* pohyblivý „rozmýšľací" lúč – samostatný prvok, prejde po CELEJ šírke a späť */
+.dr-beam{position:absolute;left:-42%;bottom:0;width:42%;height:3px;z-index:3;pointer-events:none;opacity:0;
+  background:linear-gradient(90deg,transparent,var(--accent) 26%,#fff6db 50%,var(--accent) 74%,transparent);
+  filter:drop-shadow(0 0 7px rgba(255,193,77,.75));transition:opacity .3s}
+#derat-chat.thinking .dr-beam{opacity:1;animation:drBeamMove 2.8s ease-in-out infinite alternate}
+@keyframes drBeamMove{0%{left:-42%}100%{left:100%}}
+
+/* „online" bodka jemne dýcha */
+.dr-live{animation:drLive 2.4s ease-in-out infinite}
+@keyframes drLive{0%,100%{box-shadow:0 0 0 0 rgba(166,240,111,.7),0 0 6px rgba(166,240,111,.85)}50%{box-shadow:0 0 0 5px rgba(166,240,111,0),0 0 6px rgba(166,240,111,.85)}}
+
+/* avatar maskota — jemný biely prstenec */
+.dr-av{box-shadow:0 0 0 2px rgba(255,255,255,.92),0 3px 8px rgba(46,74,17,.22)}
+
+/* ---- premium „thinking" bublina (3 bodky) ---- */
+.dr-typing{align-items:center}
+.dr-typing span{width:8px;height:8px;background:linear-gradient(180deg,#7cb83a,#3f6a18);animation:drDot2 1.1s ease-in-out infinite}
+.dr-typing span:nth-child(2){animation-delay:.15s}
+.dr-typing span:nth-child(3){animation-delay:.3s}
+@keyframes drDot2{0%,80%,100%{transform:translateY(0) scale(.7);opacity:.45}40%{transform:translateY(-4px) scale(1);opacity:1}}
+
+/* ---- správy: smerové animácie príchodu (odosielanie/prijatie) ---- */
+.dr-row.bot{animation:drInBot .42s cubic-bezier(.2,.8,.25,1) both}
+.dr-row.me{animation:drInMe .4s cubic-bezier(.2,.8,.25,1) both}
+@keyframes drInBot{from{opacity:0;transform:translateX(-10px) translateY(6px)}to{opacity:1;transform:none}}
+@keyframes drInMe{from{opacity:0;transform:translateX(14px) translateY(6px) scale(.96)}to{opacity:1;transform:none}}
+
+/* odoslanie: tlačidlo „send" cvakne + jemný tieň */
+.dr-inbar button{transition:transform .12s,box-shadow .2s,filter .2s}
+.dr-inbar button:hover{box-shadow:0 6px 16px rgba(46,74,17,.3)}
+.dr-inbar button:active{transform:scale(.88)}
+
+/* ---- rýchle chipy: jemný spring + „blur-in" reveal po jednom ---- */
+.dr-chip{transition:background-size 1.1s cubic-bezier(.22,1,.36,1),color .3s ease,border-color .25s,transform .45s cubic-bezier(.2,1.5,.35,1),opacity .4s,box-shadow .25s,filter .4s}
+.dr-chips .dr-chip{filter:blur(2px)}
+.dr-chips.reveal .dr-chip{filter:blur(0)}
+
+/* ---- KALKULAČKA: krajšie „chipy"/karty + prechody ---- */
+/* výber škodcu (dr-scard) — premium hover + výrazný selected stav */
+.dr-scard{transition:.22s cubic-bezier(.2,.8,.2,1)}
+.dr-scard:hover{transform:translateY(-3px);box-shadow:0 12px 22px rgba(46,74,17,.16)}
+.dr-scard.sel{background:linear-gradient(160deg,#f1f8e6,#e2efce);box-shadow:0 0 0 2px var(--g),0 8px 18px rgba(46,74,17,.16)}
+.dr-scard.sel .dr-scard-ic{transform:scale(1.06)}
+.dr-scard-ic{transition:transform .3s cubic-bezier(.2,1.6,.4,1)}
+
+/* prechod medzi krokmi: jemný posun + scale (premium feel) */
+.dr-stepbox{animation:drStepBox .44s cubic-bezier(.2,.85,.3,1) both!important}
+@keyframes drStepBox{from{opacity:0;transform:translateY(10px) scale(.99)}to{opacity:1;transform:none}}
+
+/* tlačidlá „Pokračovať"/„Odoslať" — prebehne lesk pri hover */
+.dr-next,.dr-submit{position:relative;overflow:hidden}
+.dr-next::after,.dr-submit::after{content:"";position:absolute;top:0;left:-120%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.38),transparent);transform:skewX(-18deg);pointer-events:none}
+.dr-next:hover::after,.dr-submit:hover::after{animation:drSheen .7s ease}
+@keyframes drSheen{from{left:-120%}to{left:135%}}
+
+/* živá cena cvakne pri zmene */
+.dr-live-price b{transition:color .2s}
+.dr-live-price b.bump{animation:drBump .42s cubic-bezier(.2,1.5,.4,1)}
+@keyframes drBump{0%{transform:scale(1)}40%{transform:scale(1.18);color:var(--g)}100%{transform:scale(1)}}
+
+/* progres prúžok – svietiaci bežec na čele */
+.dr-prog-fill{position:relative}
+.dr-prog-fill::after{content:"";position:absolute;right:0;top:50%;width:9px;height:9px;border-radius:50%;background:#cdff9c;transform:translateY(-50%);box-shadow:0 0 8px rgba(166,240,111,.9)}
+
+/* karty s fotkou – jemný lesk pri hover */
+.dr-rowcard::before,.dr-pcard::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 38%,rgba(255,255,255,.20) 50%,transparent 62%);opacity:0;transition:opacity .3s;pointer-events:none;z-index:2}
+.dr-rowcard:hover::before,.dr-pcard:hover::before{opacity:1}
+
+/* service-chip fotky: jemný statický orez (skryje bielu na kraji), bez zväčšovania pri hoveri */
+.dr-rowcard-img{transform:scale(1.2);transition:none}
+.dr-rowcard:hover .dr-rowcard-img{transform:scale(1.2)}
+
+/* spúšťacia bublina – ikonka reaguje na hover */
+#derat-bubble .dr-mouse{transition:transform .3s}
+#derat-bubble:hover .dr-mouse{transform:rotate(-6deg) scale(1.05)}
+
+/* ---- prístupnosť: rešpektuj redukciu pohybu ---- */
+@media (prefers-reduced-motion: reduce){
+  .dr-head::after,#derat-chat.thinking .dr-beam,.dr-live,.dr-typing span,
+  .dr-next::after,.dr-submit::after,.dr-prog-fill::after{animation:none!important}
+  .dr-row,.dr-stepbox,.dr-chip,.dr-live-price b.bump{animation-duration:.01ms!important}
 }
 </style>
 </head>
@@ -511,7 +676,6 @@ img{max-width:100%}
 
 <section id="derat-chat" aria-hidden="true">
   <header class="dr-head">
-    <div class="dr-head-beam"></div>
     <div class="dr-head-logo" id="dr-logo"></div>
     <div class="dr-head-t"><b>DERAT asistent</b><span><span class="dr-live"></span>Online</span></div>
     <div class="dr-head-act">
@@ -519,7 +683,9 @@ img{max-width:100%}
       <button class="dr-hbtn" onclick="DERAT.openCalc()" title="Kalkulačka"><svg viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm0 4v3h10V6H7Zm0 5v2h2v-2H7Zm4 0v2h2v-2h-2Zm4 0v2h2v-2h-2Zm-8 4v2h2v-2H7Zm4 0v2h2v-2h-2Zm4 0v2h2v-2h-2Z"/></svg></button>
       <button class="dr-hbtn ghost" onclick="DERAT.close()" title="Zavrieť"><svg viewBox="0 0 24 24"><path d="m18.3 5.7-1.4-1.4-4.9 4.9-4.9-4.9-1.4 1.4 4.9 4.9-4.9 4.9 1.4 1.4 4.9-4.9 4.9 4.9 1.4-1.4-4.9-4.9 4.9-4.9Z"/></svg></button>
     </div>
+    <span class="dr-beam" aria-hidden="true"></span>
   </header>
+
 
   <div class="dr-top">
     <button class="dr-cta" onclick="DERAT.openCalc()">
@@ -538,10 +704,10 @@ img{max-width:100%}
     <button class="dr-chip" onclick="DERAT.quick('Ako prebieha zásah a je to bezpečné?')">Postup zásahu</button>
   </div>
 
-  <form class="dr-inbar" onsubmit="DERAT.submit(event)">
-    <input id="dr-in" placeholder="Napíšte svoju otázku…" autocomplete="off">
-    <button aria-label="Odoslať"><svg viewBox="0 0 24 24"><path d="M2 21 23 12 2 3v7l15 2-15 2v7Z"/></svg></button>
-  </form>
+  <div class="dr-inbar">
+    <input id="dr-in" placeholder="Napíšte svoju otázku…" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();DERAT.submit(event);}">
+    <button type="button" aria-label="Odoslať" onclick="DERAT.submit(event)"><svg viewBox="0 0 24 24"><path d="M2 21 23 12 2 3v7l15 2-15 2v7Z"/></svg></button>
+  </div>
 
   <div class="dr-cbar">
     <div class="dr-cbar-g">
@@ -586,7 +752,7 @@ const IMG={
 
 /* Maskot – chatová bublina (biela na zelenom) */
 const WELCOME='Dobrý deň 👋 Som <b>DERAT asistent</b>. Pomôžem so škodcami — <b>deratizácia, dezinsekcia a dezinfekcia</b>. Napíšte, čo riešite, alebo si v <b>kalkulačke</b> spočítajte orientačnú cenu.';
-const MOUSE='<svg class="dr-mouse" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/><circle cx="8" cy="9" r="1.5"/><circle cx="12" cy="9" r="1.5"/><circle cx="16" cy="9" r="1.5"/></svg>';
+const MOUSE=`<svg class="dr-mouse" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#86c23f"/><stop offset="1" stop-color="#2e4a11"/></linearGradient></defs><path d="M32 4C16.5 4 4 15.5 4 29c0 8 4.5 15 11 19.5V58l11-6c2 .5 4 .5 6 .5 15.5 0 28-11 28-25S47.5 4 32 4z" fill="url(#mGrad)"/><path d="M32 15 L20 19 V31 C20 40 25 47 32 51 C39 47 44 40 44 31 V19 Z" fill="#fff" opacity="0.15"/><path d="M25 32 L30 37 L40 24" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
 /* Ikony škodcov / priestorov (jednotná veľkosť, viewBox 64) */
 const I={
@@ -604,6 +770,7 @@ const I={
   virus:`<svg viewBox="0 0 64 64"><g stroke="#c2362a" stroke-width="3.2" stroke-linecap="round"><path d="M32 14V6M32 50v8M14 32H6M50 32h8M19 19l-6-6M45 45l6 6M45 19l6-6M19 45l-6 6"/></g><g fill="#c2362a"><circle cx="32" cy="6" r="3.2"/><circle cx="32" cy="58" r="3.2"/><circle cx="6" cy="32" r="3.2"/><circle cx="58" cy="32" r="3.2"/></g><circle cx="32" cy="32" r="13" fill="#d9463a"/><circle cx="27" cy="29" r="2.6" fill="#fff"/><circle cx="36" cy="35" r="2" fill="#fff"/></svg>`,
   pigeon:`<svg viewBox="0 0 64 64"><ellipse cx="28" cy="38" rx="16" ry="11" fill="#8a95a2"/><path d="M40 30c6-3 12-2 16 2-3 4-8 5-13 4" fill="#9aa4b0"/><circle cx="46" cy="26" r="7.5" fill="#9aa4b0"/><circle cx="48" cy="24" r="1.6" fill="#1f242b"/><path d="M53 26l6-1" stroke="#e0a32e" stroke-width="3" stroke-linecap="round"/><path d="M16 40c-7 0-11 5-11 9M24 47l-2 9M32 47l1 9" stroke="#8a95a2" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
   spray:`<svg viewBox="0 0 64 64"><rect x="22" y="24" width="20" height="32" rx="5" fill="#3f6a18"/><rect x="22" y="30" width="20" height="6" fill="#345614"/><rect x="26" y="15" width="12" height="10" rx="2" fill="#5a8a24"/><rect x="27" y="9" width="8" height="7" rx="2" fill="#2e4a11"/><g stroke="#5a8a24" stroke-width="2.4" stroke-linecap="round"><path d="M44 8l9-2M44 14h10M44 20l9 4"/></g></svg>`,
+  marten:`<svg viewBox="0 0 64 64"><path d="M48 40c4 0 8-3 8-7s-5-9-10-9c-4 0-10 2-15 4-5 2-12 2-17 0-4-2-7-1-8 3-1 5 4 8 8 8 2 0 4-1 6-2 3-2 7-3 11-3 5 0 11 3 17 6z" fill="#8d8377"/><circle cx="44" cy="28" r="2.5" fill="#1f120a"/><path d="M10 44l-4 6M18 42l-2 8M38 45l-2 7M46 43l2 8" stroke="#8d8377" stroke-width="3" stroke-linecap="round"/></svg>`,
   biz:`<svg viewBox="0 0 64 64"><rect x="12" y="14" width="40" height="40" fill="#9fb088"/><g fill="#fff"><rect x="18" y="20" width="7" height="7"/><rect x="29" y="20" width="7" height="7"/><rect x="40" y="20" width="7" height="7"/><rect x="18" y="31" width="7" height="7"/><rect x="29" y="31" width="7" height="7"/><rect x="40" y="31" width="7" height="7"/></g><rect x="27" y="42" width="11" height="12" fill="#406618"/></svg>`
 };
 
@@ -642,11 +809,11 @@ const SEVERITY={
 };
 /* slider pre voľbu „Iné": veľkosť škodcu → náročnosť/cena (rastúca animácia od hmyzu po väčšie zvieratá) */
 const ANIMALS=[
-  {e:'🦟',n:'Drobný hmyz',sz:'pár mm (komár, mol, ploštica…)',m:.75},
-  {e:'🐜',n:'Väčší hmyz / článkonožce',sz:'~1–3 cm (mravce, šváby, pavúky…)',m:.9},
-  {e:'🐭',n:'Malý živočích',sz:'veľkosť myši · ~7 cm',m:1.1},
-  {e:'🐀',n:'Stredný živočích',sz:'veľkosť potkana · ~25 cm',m:1.4},
-  {e:'🦫',n:'Veľký živočích',sz:'veľkosť bobra / kuny · ~50–80 cm',m:1.9}
+  {e:I.mosquito,n:'Drobný hmyz',sz:'pár mm (komár, mol, ploštica…)',m:.75},
+  {e:I.ant,n:'Väčší hmyz',sz:'~1–3 cm (mravce, šváby…)',m:.9},
+  {e:I.mouse,n:'Malý živočích',sz:'veľkosť myši · ~7 cm',m:1.1},
+  {e:I.rat,n:'Stredný živočích',sz:'veľkosť potkana · ~25 cm',m:1.4},
+  {e:I.marten,n:'Veľký živočích',sz:'veľkosť kuny / bobra · ~50 cm',m:1.9}
 ];
 const ADDONS={
   protokol:{n:'Písomné potvrdenie o zásahu',d:'Doklad pre úrady a kontroly (napr. v gastre).',p:19,i:'Tlačený alebo PDF doklad, že zásah prebehol. Vyžaduje ho hygiena a HACCP — najmä v reštauráciách, potravinárstve a firmách.'},
@@ -692,9 +859,13 @@ function htmlSlice(html,n){let out='',c=0,i=0;while(i<html.length&&c<n){const ch
 function visLen(html){let c=0,i=0;while(i<html.length){if(html[i]==='<'){i=html.indexOf('>',i)+1;}else if(html[i]==='&'){i=html.indexOf(';',i)+1;c++;}else{i++;c++;}}return c;}
 /* uvítacia správa s typewriter efektom + chipy nabehnú po jednom */
 function botType(html,done){const r=document.createElement('div');r.className='dr-row bot';r.innerHTML='<span class="dr-av">'+MOUSE+'</span><div class="dr-b bot"><div class="dr-typing"><span></span><span></span><span></span></div></div>';msgs.appendChild(r);msgs.scrollTop=msgs.scrollHeight;
+  chat.classList.add('thinking');
   const b=r.querySelector('.dr-b'),total=visLen(html);
-  setTimeout(()=>{let n=0;(function tick(){n++;b.innerHTML=htmlSlice(html,n)+'<span class="dr-cur"></span>';msgs.scrollTop=msgs.scrollHeight;if(n<total)setTimeout(tick,8);else{b.innerHTML=html;done&&done();}})();},300);}
-function bot(html){const r=document.createElement('div');r.className='dr-row bot';r.innerHTML='<span class="dr-av">'+MOUSE+'</span><div class="dr-b bot"><div class="dr-typing"><span></span><span></span><span></span></div></div>';msgs.appendChild(r);msgs.scrollTop=msgs.scrollHeight;setTimeout(()=>{r.querySelector('.dr-b').innerHTML=html;msgs.scrollTop=msgs.scrollHeight;},380);}
+  setTimeout(()=>{let n=0;(function tick(){n++;b.innerHTML=htmlSlice(html,n)+'<span class="dr-cur"></span>';msgs.scrollTop=msgs.scrollHeight;if(n<total)setTimeout(tick,9);else{b.innerHTML=html;chat.classList.remove('thinking');done&&done();}})();},420);}
+function bot(html){const r=document.createElement('div');r.className='dr-row bot';r.innerHTML='<span class="dr-av">'+MOUSE+'</span><div class="dr-b bot"><div class="dr-typing"><span></span><span></span><span></span></div></div>';msgs.appendChild(r);msgs.scrollTop=msgs.scrollHeight;
+  chat.classList.add('thinking');
+  const b=r.querySelector('.dr-b'),total=visLen(html);
+  setTimeout(()=>{let n=0;(function tick(){n++;b.innerHTML=htmlSlice(html,n)+'<span class="dr-cur"></span>';msgs.scrollTop=msgs.scrollHeight;if(n<total)setTimeout(tick,14);else{b.innerHTML=html;chat.classList.remove('thinking');}})();},760);}
 function reply(t){const x=t.toLowerCase();
   if(/(cena|stoj|koľko|kolko|cenn|lacn)/.test(x))return 'Cena závisí od služby, druhu škodcu, plochy a rozsahu. Najrýchlejšie ju zistíte v <b>kalkulačke</b> — kliknite na „Spočítať cenu". Presnú ponuku potvrdíme po obhliadke.';
   if(/(my[šs]|potkan|hlodav|hraboš|hrabos|hryz)/.test(x))return 'Hlodavce (potkany, myši, hraboše) riešime <b>deratizáciou</b> — chemickými nástrahami alebo odchytovými klietkami a pascami. V kalkulačke vyberte Deratizáciu.';
@@ -764,7 +935,7 @@ function rIne(){const c=state.c,a=ANIMALS[c.ineSize],p=Math.round(c.ineSize/(ANI
   const ph=c.service==='dezinfekcia'?'Napíšte, čo potrebujete vydezinfikovať…':'Napíšte, čo vás trápi (napr. kuna, plch, hmyz…)';
   const size=c.service==='dezinfekcia'?'':`
     <div class="dr-size">
-      <div class="dr-size-emoji" id="dr-size-emoji" style="font-size:${30+c.ineSize*13}px">${a.e}</div>
+      <div class="dr-size-icon" id="dr-size-emoji" style="transform:scale(${1 + c.ineSize*0.08})">${a.e}</div>
       <div class="dr-size-lbl" id="dr-size-lbl"><b>${a.n}</b><span>${a.sz}</span></div>
       <input class="dr-slider" type="range" min="0" max="${ANIMALS.length-1}" step="1" value="${c.ineSize}" style="--p:${p}%" oninput="DERAT.ineSize(+this.value)">
       <div class="dr-scale"><span>najmenší (hmyz)</span><span>najväčší</span></div>
@@ -871,13 +1042,13 @@ window.DERAT={
     if(!msgs.dataset.i){msgs.dataset.i='1';botType(WELCOME,()=>{const ch=document.querySelector('.dr-chips');if(ch)ch.classList.add('reveal');});}
     else{const ch=document.querySelector('.dr-chips');if(ch)ch.classList.add('reveal');}},
   reset(){if(chat.classList.contains('calc'))this.closeCalc();msgs.innerHTML='';msgs.dataset.i='1';state.unlocked=false;
-    const ch=document.querySelector('.dr-chips');if(ch)ch.classList.remove('reveal');
+    const ch=document.querySelector('.dr-chips');if(ch)ch.classList.remove('reveal','gone');
     botType(WELCOME,()=>{if(ch)ch.classList.add('reveal');});},
   close(){state.open=false;chat.classList.remove('show','calc');chat.setAttribute('aria-hidden','true');$('derat-bubble').classList.remove('open');},
   openCalc(){this.open();chat.classList.add('calc');state.unlocked=false;render();},
   closeCalc(){chat.classList.remove('calc');},
   _hideChips(){const ch=document.querySelector('.dr-chips');if(ch)ch.classList.add('gone');},
-  submit(e){e.preventDefault();const v=inp.value.trim();if(!v)return;inp.value='';add(esc(v),'me');this._hideChips();bot(reply(v));},
+  submit(e){if(e&&e.preventDefault)e.preventDefault();const v=inp.value.trim();if(!v)return;inp.value='';add(esc(v),'me');this._hideChips();bot(reply(v));},
   quick(t){this.open();add(esc(t),'me');this._hideChips();bot(reply(t));},
   tip(e,i){e.stopPropagation();const b=e.currentTarget,tb=$('dr-tipbox');if(!tb)return;
     const wasOn=b.classList.contains('on');
@@ -890,7 +1061,7 @@ window.DERAT={
     let y=r.bottom+8;if(y+h>window.innerHeight-8)y=Math.max(8,r.top-h-8);
     tb.style.left=x+'px';tb.style.top=y+'px';},
   _markOne(grp,el){document.querySelectorAll('.dr-body [data-grp="'+grp+'"]').forEach(b=>b.classList.toggle('sel',b===el));},
-  _livePrice(){const lp=document.querySelector('.dr-live-price b');if(lp)lp.textContent=eur(compute().total);},
+  _livePrice(){const lp=document.querySelector('.dr-live-price b');if(lp){lp.textContent=eur(compute().total);lp.classList.remove('bump');void lp.offsetWidth;lp.classList.add('bump');}},
   _hero(){const h=calc.querySelector('.dr-hero');if(!h)return;
     const ni=(flow()[state.step]==='place')?IMG[state.c.place]:IMG[state.c.service];
     if((h.getAttribute('data-img')||'')===(ni||'')){          // rovnaký obrázok → meníme len popisok, nereštartujeme animáciu
@@ -904,7 +1075,7 @@ window.DERAT={
   pickSeverity(id,el){state.c.severity=id;this._markOne('severity',el);this._livePrice();},
   ineText(v){state.c.ineText=v;this._livePrice();},
   ineSize(v){state.c.ineSize=v;const a=ANIMALS[v],e=$('dr-size-emoji'),l=$('dr-size-lbl'),s=document.querySelector('.dr-size .dr-slider');
-    if(e){e.textContent=a.e;e.style.fontSize=(30+v*13)+'px';}if(l)l.innerHTML='<b>'+a.n+'</b><span>'+a.sz+'</span>';
+    if(e){e.innerHTML=a.e;e.style.transform='scale('+(1+v*0.08)+')';}if(l)l.innerHTML='<b>'+a.n+'</b><span>'+a.sz+'</span>';
     if(s)s.style.setProperty('--p',Math.round(v/(ANIMALS.length-1)*100)+'%');this._livePrice();},
   checkLock(){if(state.unlocked)return;const n=$('dr-name'),p=$('dr-phone');
     if(n&&p&&n.value.trim()&&p.value.replace(/\s/g,'').length>=6){state.unlocked=true;const card=document.querySelector('.dr-result');if(card)card.classList.remove('locked');}},
@@ -943,14 +1114,20 @@ Poznámka: ${p.note||'-'}`;},
     if(!p.name||!p.phone){st.className='dr-stat show err';st.textContent='Vyplňte aspoň meno a telefón.';return false;}
     if(!$('dr-consent').checked){st.className='dr-stat show err';st.textContent='Potvrďte prosím súhlas so spracovaním údajov.';return false;}
     return true;},
-  send(){const p=this._payload();if(!this._valid(p))return;const st=$('dr-stat');
-    const ok=()=>{st.className='dr-stat show ok';st.textContent='Ďakujeme! Dopyt odoslaný — čoskoro sa vám ozveme.';};
-    const ej=CONFIG.emailjs;
-    if(ej.publicKey&&ej.serviceId&&ej.templateId&&window.emailjs){
-      emailjs.send(ej.serviceId,ej.templateId,p).then(ok).catch(()=>{st.className='dr-stat show err';st.textContent='Odoslanie zlyhalo. Skúste WhatsApp alebo zavolajte na '+CONFIG.phoneText+'.';});return;}
-    if(CONFIG.leadEndpoint){
-      fetch(CONFIG.leadEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)}).then(r=>{if(!r.ok)throw 0;ok();}).catch(()=>{st.className='dr-stat show err';st.textContent='Odoslanie zlyhalo. Zavolajte na '+CONFIG.phoneText+'.';});return;}
-    window.location.href='mailto:'+CONFIG.email+'?subject='+encodeURIComponent('Dopyt z kalkulačky – '+p.service)+'&body='+encodeURIComponent(this._summary(p));ok();},
+  send(){const p=this._payload();if(!this._valid(p))return;const st=$('dr-stat'),btn=document.querySelector('.dr-submit');
+    const orig=btn.innerHTML;
+    btn.innerHTML='<svg class="dr-spinner" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="31.4 31.4" stroke-linecap="round"></circle></svg> Odosielam...';
+    btn.style.pointerEvents='none';
+    const ok=()=>{btn.innerHTML='✓ Úspešne odoslané';btn.style.background='#25d366';st.className='dr-stat show ok';st.textContent='Ďakujeme! Dopyt odoslaný — čoskoro sa vám ozveme.';setTimeout(()=>{btn.innerHTML=orig;btn.style.background='';btn.style.pointerEvents='auto';},4000);};
+    const err=(m)=>{btn.innerHTML=orig;btn.style.pointerEvents='auto';st.className='dr-stat show err';st.textContent=m;};
+    setTimeout(()=>{
+      const ej=CONFIG.emailjs;
+      if(ej.publicKey&&ej.serviceId&&ej.templateId&&window.emailjs){
+        emailjs.send(ej.serviceId,ej.templateId,p).then(ok).catch(()=>err('Odoslanie zlyhalo. Skúste WhatsApp.'));return;}
+      if(CONFIG.leadEndpoint){
+        fetch(CONFIG.leadEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)}).then(r=>{if(!r.ok)throw 0;ok();}).catch(()=>err('Odoslanie zlyhalo. Skúste WhatsApp.'));return;}
+      window.location.href='mailto:'+CONFIG.email+'?subject='+encodeURIComponent('Dopyt z kalkulačky – '+p.service)+'&body='+encodeURIComponent(this._summary(p));ok();
+    }, 600);},
   sendWa(){const p=this._payload();if(!this._valid(p))return;
     window.open('https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent(this._summary(p)),'_blank');
     const st=$('dr-stat');st.className='dr-stat show ok';st.textContent='Otvárame WhatsApp s predvyplneným dopytom…';}
