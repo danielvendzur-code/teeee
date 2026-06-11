@@ -8,16 +8,19 @@ Dizajn a UX sú inšpirované konfigurátorom **„Môj plot"**, prefarbené do 
 **derat.sk**: zelená `#406618`, červená `#c63a27`, font **Poppins**.
 
 ## Čo widget vie
-- 💬 **Chatbot** – odpovedá na časté otázky (hlodavce, hmyz, osy, plesne/vírusy, burina,
-  stromy, postup zásahu, bezpečnosť, cena, región) s „typing" indikátorom.
-- 🧮 **Kalkulačka v 7 jednoduchých krokoch** s peknými, stručnými otázkami:
-  1. *Akú službu potrebujete?* – deratizácia / dezinsekcia / dezinfekcia / burina / stromy (karty s **fotkami**)
+- 💬 **Chatbot** – odpovedá na časté otázky (hlodavce, hmyz, osy, plesne/vírusy,
+  postup zásahu, bezpečnosť, cena, doprava a región) s „typing" indikátorom.
+- 🧮 **Dynamická kalkulačka** s peknými, stručnými otázkami:
+  1. *Akú službu potrebujete?* – deratizácia / dezinsekcia / dezinfekcia (karty s **fotkami**)
   2. *Čoho presne sa potrebujete zbaviť?* – konkrétny škodca + info box s vysvetlením
   3. *Kde máme zasiahnuť?* – byt / dom / prevádzka / HoReCa / sklad / exteriér (karty s **fotkami**)
-  4. *Aká je veľkosť priestoru?* – posuvník (m² alebo počet stromov) + rýchle voľby
-  5. *Ako veľký je problém?* – mierne / stredné / silné (odhad počtu zásahov)
-  6. *Chcete niečo navyše?* – doplnky (opakovaný zásah, protokol, monitoring, expres, hniezda)
-  7. *Vaša orientačná cena* – animovaná cena, rozpis, formulár dopytu
+  4. *Koľko izieb má byt?* – pomocný výber; rozloha zostáva dôležitejšia
+  5. *Aká je veľkosť priestoru?* – m² alebo pri dezinfekcii m³
+  6. *Aký materiál použiť?* – nástrahy a pasce z cenníka, ak ide o hlodavce
+  7. *Ako veľký je problém?* – mierne / stredné / silné
+  8. *Kde a kedy?* – PSČ, doprava 0,40 €/km, víkend a sviatok
+  9. *Chcete doplnkové služby?* – protokol alebo celoročný monitoring
+  10. *Vaša orientačná cena* – rozpis bez DPH, s DPH a formulár dopytu
 - 📷 **Reálne fotky** – fotka služby/priestoru v hero náhľade (jemný Ken Burns zoom),
   fotky na výberových kartách. Zdroje: oficiálne fotky derat.sk + Wikimedia Commons (voľná licencia).
 - 💶 **Živá cena** – počas vypĺňania vidíte priebežnú orientačnú sumu; na konci animovaný súčet + rozpis.
@@ -35,6 +38,11 @@ Skopírujte blok medzi `<!-- WIDGET -->` (vrátane `<style>`, `<section>` a `<sc
 do šablóny webu. Blok `<div class="demo">…</div>` je len ukážkové pozadie – na ostrej
 stránke ho vynechajte. Súbor `@emailjs/browser` v `<head>` načítajte len ak chcete EmailJS.
 
+Priame vloženie kódu je vhodnejšie než celostránkový `iframe`: mimo otvoreného okna zostáva
+web normálne klikateľný. Ak sa použije `iframe`, jeho desktopový rám má byť najviac približne
+`470 × 760 px` a umiestnený vpravo dole; priehľadný celostránkový iframe by blokoval kliknutia
+na stránke pod ním.
+
 ## Nastavenia (na začiatku `<script>`)
 ```js
 const CONFIG={
@@ -44,8 +52,12 @@ const CONFIG={
   emailjs:{publicKey:'', serviceId:'', templateId:''} // voliteľný EmailJS
 };
 ```
-- **Ceny** sú orientačné (€ bez DPH) v objektoch `SERVICES`, `PLACES`, `SEVERITY`,
-  `ADDONS` (`base`=výjazd, `rate`=€/m² resp. €/ks, `m`=násobiteľ). Min. výjazd `MIN`.
+- **Ceny** sú orientačné a všetky vstupy z cenníka sú bez DPH. Minimum výjazdu a práce je
+  `60 €`, doprava mimo Bratislavy `0,40 €/km`, víkend `+20 %` a sviatok `+50 %`.
+- Ploštice používajú cenníkové minimá podľa izieb, ale väčšia rozloha môže výsledok zvýšiť.
+- PSČ určuje orientačnú vzdialenosť z Bratislavy tam aj späť. Presná doprava sa potvrdí
+  podľa úplnej adresy.
+- Dopyt obsahuje cenu bez DPH, rozsah odhadu, cenu s DPH, dopravu, príplatok aj materiál.
 - **Fotky** sú v objekte `IMG` – stačí vymeniť URL (ideálne za vlastné fotky derat.sk).
 - **Texty** chatbota v `reply()`, vysvetlenia v poli `info` služieb a v `PROCESS`,
   otázky v `QUESTIONS`.
